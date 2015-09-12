@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<level>
+
+
+<question>
+<snippet><![CDATA[
+function level4() {
+	return function level3() {
+		return function level2() {
+			return function level1() {
+				return "hey";
+			}
+		}
+	}
+}
+
+var a = level4()()()();
+console.log(a);
+]]>
+</snippet>
+<answers>
+	<rightans>hey</rightans>
+	<ans>a</ans>
+	<ans>"hey"</ans>
+	<ans>function</ans>
+	<ans>ReferenceError</ans>	
+	<com>Other</com>
+</answers>
+</question>
+
+<question>
+<snippet><![CDATA[
+!"false" == !"true"
+]]>
+</snippet>
+<answers>
+	<rightans>true</rightans>
+	<ans>false</ans>
+	<ans>0</ans>
+	<ans>"false"</ans>
+	<ans>undefined</ans>
+	<ans>SyntaxError</ans>
+	<ans>ReferenceError</ans>	
+	<com>Other</com>
+</answers>
+</question>
+
+<question>
+<snippet><![CDATA[
+!!!!!true + 1
+]]>
+</snippet>
+<answers>
+	<rightans>1</rightans>
+	<ans>2</ans>
+	<ans>0</ans>
+	<ans>true</ans>
+	<ans>false</ans>
+	<ans>"1"</ans>
+	<ans>SyntaxError</ans>
+	<com>Other</com>
+</answers>
+</question>
+
+<question>
+<snippet><![CDATA[
+var i = 30, 
+	j = 0;
+
+while (--i) ++j;
+console.log(j);
+]]>
+</snippet>
+<answers>
+	<rightans>29</rightans>
+	<com>Infinite loop</com>
+	<ans>NaN</ans>
+	<ans>30</ans>
+	<ans>31</ans>
+	<ans>0</ans>
+	<ans>SyntaxError</ans>
+	<com>Other</com>
+</answers>
+</question>
+
+<question>
+<snippet><![CDATA[
+typeof new String("hello");
+]]>
+</snippet>
+<answers>
+	<rightans>"object"</rightans>
+	<ans>obejct</ans>
+	<ans>"string"</ans>
+	<ans>string</ans>
+	<ans>undefined</ans>
+	<ans>"object String"</ans>
+	<com>Other</com>
+</answers>
+</question>
+
+
+</level>

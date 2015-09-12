@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<level>
+
+
+<question>
+<snippet><![CDATA[
+console.log(toString);
+]]>
+</snippet>
+<answers>
+	<rightans>function () { [native code] }</rightans>
+	<ans>toString</ans>
+	<ans>"toString"</ans>
+	<ans>"console.log"</ans>
+	<ans>ReferenceError</ans>
+	<ans>SyntaxError</ans>
+</answers>
+</question>
+
+<question>
+<snippet><![CDATA[
+2 + "px"
+]]>
+</snippet>
+<answers>
+	<rightans>"2px"</rightans>
+	<ans>2px</ans>
+	<ans>"2em"</ans>
+	<ans>3</ans>
+	<ans>SyntaxError</ans>
+	<ans>TypeError</ans>
+	<com>Other</com>
+</answers>
+</question>
+
+<question>
+<snippet><![CDATA[
+typeof myVariable;
+]]>
+</snippet>
+<answers>
+	<rightans>"undefined"</rightans>
+	<ans>ReferenceError</ans>
+	<ans>number</ans>
+	<ans>"string"</ans>
+	<ans>"object"</ans>
+	<ans>SyntaxError</ans>
+	<com>Other</com>
+</answers>
+</question>
+
+<question>
+<snippet><![CDATA[
+-2e-1 + 1
+]]>
+</snippet>
+<answers>
+	<rightans>0.8</rightans>
+	<ans>-2</ans>
+	<ans>0</ans>
+	<ans>NaN</ans>
+	<ans>SyntaxError</ans>
+	<com>Other</com>
+</answers>
+</question>
+
+<question>
+<snippet><![CDATA[
+1/0
+]]>
+</snippet>
+<answers>
+	<rightans>Infinity</rightans>
+	<ans>NaN</ans>
+	<ans>SyntaxError</ans>
+	<ans>0</ans>
+	<ans>1</ans>
+	<ans>undefined</ans>
+	<ans>null</ans>
+	<ans>false</ans>
+	<com>Other</com>
+</answers>
+</question>
+
+<question>
+<snippet><![CDATA[
+var $çò = 1;
+
+++$çò;
+console.log($çò);
+]]>
+</snippet>
+<answers>
+	<rightans>2</rightans>
+	<ans>Number</ans>
+	<ans>undefined</ans>
+	<ans>ReferenceError</ans>
+	<ans>SyntaxError</ans>
+	<ans>"1"</ans>
+	<ans>$çò</ans>
+	<ans>1</ans>	
+	<com>Other</com>
+</answers>
+</question>
+
+﻿<question>
+<snippet><![CDATA[
+location == self.location;
+]]>
+</snippet>
+<answers>
+	<rightans>true</rightans>
+	<com>Depends on the frame</com>
+	<ans>false</ans>
+	<ans>SyntaxError</ans>
+	<ans>ReferenceError</ans>	
+	<com>Other</com>
+</answers>
+</question>
+
+
+</level>

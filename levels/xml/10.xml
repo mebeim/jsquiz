@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<level>
+
+
+<question>
+<snippet><![CDATA[
+var myArray = [1,2,3],
+	myString = '';
+
+myArray[myArray] = 5;
+for (var i in myArray) myString = i;
+
+myString
+]]>
+</snippet>
+<answers>
+	<rightans>"1,2,3"</rightans>
+	<ans>"[1,2,3]"</ans>
+	<ans>"object"</ans>
+	<ans>"5"</ans>
+	<ans>"1"</ans>
+	<ans>undefined</ans>
+	<ans>ReferenceError</ans>
+</answers>
+</question>
+
+<question>
+<snippet><![CDATA[
+var arr = [];
+arr.toString = function() { return this; }
+
+a == 0
+]]>
+</snippet>
+<answers>
+	<rightans>TypeError</rightans>
+	<ans>false</ans>
+	<ans>true</ans>
+	<ans>undefined</ans>
+	<ans>SyntaxError</ans>
+	<ans>ReferenceError</ans>
+	<com>Other</com>
+</answers>
+</question>
+
+
+</level>

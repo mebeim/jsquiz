@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<level>
+
+
+<question>
+<snippet><![CDATA[
+3..toString()
+]]>
+</snippet>
+<answers>
+	<rightans>"3"</rightans>
+	<ans>3</ans>
+	<ans>undefined</ans>
+	<ans>""</ans>
+	<ans>null</ans>
+	<ans>NaN</ans>
+	<ans>SyntaxError</ans>
+	<ans>ReferenceError</ans>
+</answers>
+</question>
+
+<question>
+<snippet><![CDATA[
+NaN == NaN
+]]>
+</snippet>
+<answers>
+	<rightans>false</rightans>
+	<ans>true</ans>
+	<ans>True</ans>
+	<ans>ture</ans>
+	<ans>"true"</ans>
+	<ans>0</ans>
+	<ans>SyntaxError</ans>
+	<ans>TypeError</ans>
+	<ans>ReferenceError</ans>	
+	<com>Other</com>
+</answers>
+</question>
+
+
+</level>

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<level>
+
+
+<question>
+<snippet><![CDATA[
+if ("potato") {
+    console.log("potato" == false, "potato" == true);
+}
+]]>
+</snippet>
+<answers>
+	<rightans>false false</rightans>
+	<ans>false true</ans>
+	<ans>"false true"</ans>
+	<ans>true true</ans>
+	<ans>undefined</ans>
+	<ans>"false false"</ans>
+	<ans>potato potato</ans>
+</answers>
+</question>
+
+<question>
+<snippet><![CDATA[
+if (false);
+]]>
+</snippet>
+<answers>
+	<rightans>undefined</rightans>
+	<ans>false</ans>
+	<ans>true</ans>
+	<ans>TypeError</ans>
+	<ans>SyntaxError</ans>
+	<com>No output</com>
+</answers>
+</question>
+
+
+</level>

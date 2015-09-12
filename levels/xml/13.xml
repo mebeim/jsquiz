@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<level>
+
+
+<question>
+<snippet><![CDATA[
+[,]
+]]>
+</snippet>
+<answers>
+	<rightans>[undefined × 1]</rightans>
+	<ans>[undefined]</ans>
+	<ans>undefined</ans>
+	<ans>[undefined, undefined]</ans>
+	<ans>[undefined × 2]</ans>
+	<ans>[]</ans>
+</answers>
+</question>
+
+
+</level>

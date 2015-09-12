@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<level>
+
+
+<question>
+<snippet><![CDATA[
+very
+very
+very
+very
+very
+very
+very
+long
+and
+multiline
+snippet
+of
+test
+for
+testing
+scrolling
+and
+stuff
+because..
+
+stuff
+]]>
+</snippet>
+<answers>
+	<rightans>1.1</rightans>
+	<ans>1</ans>
+	<ans>"1.1"</ans>
+	<ans>"1"</ans>
+	<ans>SyntaxError</ans>
+	<com>Other</com>
+</answers>
+</question>
+
+
+
+<question>
+<snippet><![CDATA[
+1.1
+]]>
+</snippet>
+<answers>
+	<rightans>1.1</rightans>
+	<ans>1</ans>
+	<ans>"1.1"</ans>
+	<ans>"1"</ans>
+	<ans>SyntaxError</ans>
+	<com>Other</com>
+</answers>
+</question>
+
+<question>
+<snippet><![CDATA[
+1 + 2 + 3 + 4 + 5 % 1
+]]>
+</snippet>
+<answers>
+	<rightans>10</rightans>
+	<ans>1</ans>
+	<ans>0</ans>
+	<ans>SyntaxError</ans>
+	<ans>5</ans>
+	<ans>"10"</ans>
+	<ans>"1"</ans>
+</answers>
+</question>
+
+<question>
+<snippet><![CDATA[
+!(true) || false || 1
+]]>
+</snippet>
+<answers>
+	<rightans>1</rightans>
+	<ans>true</ans>
+	<ans>false</ans>
+	<ans>undefined</ans>
+	<ans>Nan</ans>
+	<ans>SyntaxError</ans>
+	<ans>"1"</ans>
+</answers>
+</question>
+
+<question>
+<snippet><![CDATA[
+false || false
+]]>
+</snippet>
+<answers>
+	<rightans>false</rightans>
+	<ans>true</ans>
+	<ans>"false"</ans>
+	<ans>undefined</ans>
+	<ans>NaN</ans>
+	<ans>SyntaxError</ans>
+	<com>Other</com>
+</answers>
+</question>
+
+<question>
+<snippet><![CDATA[
+var x = 0.3;
+
+x.length
+]]>
+</snippet>
+<answers>
+	<rightcom>Other</rightcom>
+	<ans>ReferenceError</ans>
+	<ans>1</ans>
+	<ans>0</ans>
+	<ans>0.3</ans>
+	<ans>SyntaxError</ans>
+</answers>
+</question>
+
+<question>
+<snippet><![CDATA[
+3 + 3 - 3 * 3 / 3
+]]>
+</snippet>
+<answers>
+	<rightans>3</rightans>
+	<ans>6</ans>
+	<ans>0</ans>
+	<ans>9</ans>
+	<ans>27</ans>
+	<ans>1</ans>
+	<ans>SyntaxError</ans>
+	<ans>ReferenceError</ans>	
+	<com>Other</com>
+</answers>
+</question>
+
+<question>
+<snippet><![CDATA[
+function sayHello(name) {
+	if (name) return "Hello " + name + "!";
+	else return false;
+}
+
+sayHello("false");
+]]>
+</snippet>
+<answers>
+	<rightans>"Hello false!"</rightans>
+	<ans>false</ans>
+	<ans>undefined</ans>
+	<ans>"false"</ans>
+	<ans>"Hello name!"</ans>
+	<ans>""</ans>
+	<ans>SyntaxError</ans>
+	<ans>ReferenceError</ans>	
+	<com>Other</com>
+</answers>
+</question>
+
+
+</level>

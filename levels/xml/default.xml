@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<level>
+
+
+<question>
+<snippet><![CDATA[
+
+]]>
+</snippet>
+<answers>
+	<rightans></rightans>
+	<ans></ans>
+	<ans></ans>
+	<ans></ans>
+	<ans></ans>
+	<ans></ans>
+	<ans></ans>
+	<ans></ans>
+	<ans>SyntaxError</ans>
+	<ans>ReferenceError</ans>
+	<com>Other</com>
+</answers>
+</question>
+
+
+</level>

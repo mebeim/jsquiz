@@ -1,0 +1,63 @@
+@-webkit-keyframes resize-title-area {
+	from { -webkit-transform: translate3d(0,0,0); }
+	to { -webkit-transform: translate3d(0,calc(-100% + 2.6em),0); }
+}
+
+@-webkit-keyframes move-title {
+	from { -webkit-transform: translate3d(0,calc(50% - 1em),0); }
+	to { -webkit-transform: translate3d(0,calc(100% - 1em),0); }
+}
+
+
+.splash body {
+	overflow: hidden;
+	-webkit-transform-style: preserve-3d;
+}
+
+.splash .app-title, .splash .app-title-text {
+	height: 100%;
+}
+
+.splash .app-title {
+	position: relative;
+	z-index: 2;
+}
+
+.splash .app-credits-icon, .splash .app-start > * {
+	-webkit-opacity: 0;
+}
+
+.splash .app-container {
+	position: absolute;
+	top: 2.6em;
+	left: 0; right: 0; bottom: 0;
+	z-index: 1;
+}
+
+
+.splash.loading .app-title {
+	-webkit-transform: translate3d(0,0,0);
+}
+
+.splash.loading .app-title-text {
+	-webkit-transform: translate3d(0,calc(50% - 1em),0);
+}
+
+
+.splash.load .app-title {
+	-webkit-animation: resize-title-area 800ms linear 0 1 normal forwards;
+}
+
+.splash.load .app-title-text {
+	-webkit-animation: move-title 800ms linear 0 1 normal forwards;
+}
+
+.splash.load .app-start > * {
+	-webkit-transition: opacity 200ms ease 800ms;
+	-webkit-opacity: 1;
+}
+
+.splash.load .app-credits-icon {
+	-webkit-transition: opacity 200ms ease 800ms;
+	-webkit-opacity: 0.8;
+}

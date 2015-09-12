@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<level>
+
+
+<question>
+<snippet><![CDATA[
+var obj = {
+	toString: function() { return undefined; },
+	valueOf: function() { return undefined; }
+};
+
+undefined == obj
+]]>
+</snippet>
+<answers>
+	<rightans>false</rightans>
+	<ans>true</ans>
+	<ans>TypeError</ans>
+	<ans>ReferenceError</ans>
+	<com>Other</com>
+</answers>
+</question>
+
+<question>
+<snippet><![CDATA[
+[,,].toString();
+]]>
+</snippet>
+<answers>
+	<rightans>","</rightans>
+	<ans>"undefined,undefinde,undefined"</ans>
+	<ans>",,"</ans>
+	<ans>"undefined"</ans>
+	<ans>""</ans>
+	<ans>undefined</ans>
+	<ans>SyntaxError</ans>
+</answers>
+</question>
+
+
+</level>
