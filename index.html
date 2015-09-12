@@ -1,16 +1,4 @@
-<?php
-if (strpos($_SERVER["HTTP_ACCEPT"], "application/xhtml+xml") !== false) {
-	define("CDATA_ON", "<![CDATA[");
-	define("CDATA_OFF", "]]>");
-	header("Content-Type: application/xhtml+xml; charset=UTF-8");
-	echo '<?xml version="1.0" encoding="UTF-8"?>'."\n";
-}
-else {
-	define("CDATA_ON", "");
-	define("CDATA_OFF", "");
-	header("Content-Type: text/html; charset=UTF-8");
-}
-?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
