@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<level>
+
+
+<question>
+<snippet><![CDATA[
+encodeURI({toString: function() {return this;}})
+]]>
+</snippet>
+<answers>
+	<rightans>TypeError</rightans>
+	<ans>"%5Bobject%20Object%5D"</ans>
+	<ans>"[object Object]"</ans>
+	<ans>"this"</ans>
+	<ans>undefined</ans>
+	<ans>""</ans>
+	<ans>SyntaxError</ans>
+	<com>Other</com>
+</answers>
+</question>
+
+<question>
+<snippet><![CDATA[
+var x = 3.[2];
+
+console.log(x.toString());
+]]>
+</snippet>
+<answers>
+	<rightans>TypeError</rightans>
+	<ans>undefined</ans>
+	<ans>"undefined"</ans>
+	<ans>3.2</ans>
+	<ans>"3.2"</ans>
+	<ans>number</ans>
+	<ans>Object</ans>
+	<ans>object Number</ans>
+	<ans>3</ans>
+	<ans>SyntaxError</ans>
+</answers>
+</question>
+
+<question>
+<snippet><![CDATA[
+decodeURIComponent("%");
+]]>
+</snippet>
+<answers>
+	<rightans>URIError</rightans>
+	<ans>"%25"</ans>
+	<ans>""</ans>
+	<ans>undefined</ans>
+	<ans>0</ans>	
+	<com>Other</com>
+</answers>
+</question>
+
+
+</level>

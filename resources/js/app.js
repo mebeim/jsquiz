@@ -1,0 +1,385 @@
+﻿function JSQuiz(RESUME) {	
+	var OBJ 				= this,
+		MAX_LEVEL			= 30,
+		MAX_PAUSE_TIME		= 3600000, // 1 hour
+		MOBILE				= window.MOBILE,
+		lostGame,
+		currentLevel		= arguments[1],
+		currentQuestion		= arguments[2],
+		currentAnswer		= arguments[3],
+		currentPoints		= arguments[4],
+		pointsPerQuestion	= arguments[5],
+		questionsPerLevel	= arguments[6],
+		questionsAnswered	= arguments[7],
+		questions			= arguments[8],
+		selectorAnswers		= '.game-answer',
+// TODO: don't use querySelector when possible, getElementsByClassName has better performance (should make a separate func maybe?)
+		gameStartOverlay	= document.querySelector('.app-start'),
+		gameOverOverlay		= document.querySelector('.game-over-overlay'),
+		gameStart			= document.querySelector('.game-start-button'),
+		gameRestart			= document.querySelector('.game-restart-button'),
+		gameQuit			= document.querySelector('.game-quit-button'),
+		gameCode			= document.querySelector('.game-snippet code'),
+		gameLevel			= document.querySelector('.game-current-level span'),
+		gamePoints			= document.querySelector('.game-points span'),
+		gameProgress		= document.querySelector('.game-progress-bar'),
+		gameLevelUp			= document.querySelector('.game-level-up-overlay'),
+		gameFinalScore		= document.querySelector('.game-final-score'),
+		gameFinalLevel		= document.querySelector('.game-final-level'),
+		gameFinalAnswered	= document.querySelector('.game-final-answered'),
+		gameAnswers			= document.querySelectorAll(selectorAnswers);
+
+	// Will start the game
+	this.start = function() {
+		loadLevel(1, 3, function() {
+			updateInfo();
+			loadQuestion(questions[0]);
+			$(gameStartOverlay).fadeOut();
+			$(selectorAnswers).each(function(i, el) {
+				el.onpress(checkAnswer);
+			});
+			animateIn();
+		});
+	}
+	
+	// Will restart the game
+	this.restart = function() {
+		init();
+		$(gameOverOverlay).fadeOut();
+		OBJ.start();
+	}
+	
+	// Will quit the game
+	this.quit = function() {
+		init();
+		$(gameOverOverlay).fadeOut();		
+		$(gameStartOverlay).fadeIn();
+	}
+	
+	// Will retrieve info about the current level
+	this.levelInfo = function(a, b) {
+		a == a || 1;
+		a = a > MAX_LEVEL ? MAX_LEVEL : a <= 0 ? 1 : a;
+		b = b > MAX_LEVEL ? MAX_LEVEL : b || a;
+		for (var i=a; i <= b; i++) {
+			console.log((i==a ? 'L' : 'l') + 'evel ' + i + ' will have ' + questionsFunction(i) + ' questions each one worth ' + pointsFunction(i) + ' points' + (i==b ? '.' : ';'));
+		}
+	}
+	
+	// Binding functions to elements
+	gameStart.onpress(this.start);
+	gameRestart.onpress(this.restart);
+	gameQuit.onpress(this.quit);
+//TODO: remove jquery
+	$(gameAnswers).each(function(i, el) {
+		this.code = this.querySelector('code');
+	});
+	
+	init();
+	
+
+	// INIT function
+	function init() {
+		if (RESUME) {
+			loadQuestion(questions[currentQuestion-1]);
+			updateInfo();
+			updateProgressBar((currentQuestion-1) / questionsPerLevel * 100);
+			$(gameStartOverlay).fadeOut();
+			$(selectorAnswers).each(function(i, el) { el.onpress(checkAnswer); });
+			animateIn();
+			RESUME = false;
+		} else {
+			lostGame			= false;
+			currentLevel		= 1;
+			currentQuestion		= 1;
+			currentAnswer		= 0;
+			currentPoints		= 0;
+			pointsPerQuestion	= 1;
+			questionsPerLevel	= 3;
+			questionsAnswered	= 0;
+			questions			= new Array();
+			updateProgressBar();
+			$('.wrong').removeClass('wrong');
+		}
+	}
+	
+	function questionsFunction(x) {
+		if (x > 30) return;
+		if (x == 30) return 30;
+		if (x >= 25) return 15;
+		if (x >= 22) return 10;
+		if (x >= 18) return 9;
+		if (x >= 15) return 8;
+		if (x >= 10) return 7;
+		if (x >= 8) return 6;
+		if (x >= 5) return 5;
+		if (x >= 3) return 4;
+		if (x >= 1) return 3;
+		return;
+	}
+	
+	function pointsFunction(x) {
+		return Math.round(Math.pow(x, 1.8)/1.5);
+	}
+	
+	function loadLevel(n, q, callback) {
+		XMLp = window.XMLp || new XMLParser();
+		XMLp.parseLevel(n, q, function(response) {
+			if (response.status == "ok") {
+				questions = response.data;
+				callback();
+			}
+		});
+	}
+	
+	function loadQuestion(q) {
+		if (!q) return "loadQuestion error: no question given";
+
+		gameCode.className = '';
+		gameCode.textContent = q.snippet;
+		fixCodePosition();
+		hljs.highlightBlock(gameCode);
+		currentAnswer = q.right_answer;
+		
+		for (var i = 0; i < q.answers.length; i++) {
+			gameAnswers[i].code.textContent = q.answers[i];
+			$(gameAnswers[i])[~q.comments.indexOf(i) ? 'addClass' : 'removeClass']('comment');
+		}
+		
+		return true;
+	}
+	
+	function checkAnswer(event) {
+		function animate(r) {
+			var others;
+			
+			if (r) {
+				updateProgressBar(currentQuestion / questionsPerLevel * 100);
+				animateOut.call(this);
+				questionsAnswered++;
+			} else
+				$(this).addClass('wrong');
+		}
+		
+		if (!lostGame) {
+			if (parseInt(this.dataset.answer) == currentAnswer) {
+				animate.call(this, true);
+				setTimeout(proceed, 400);
+			} else {
+				animate.call(this, false);
+				setTimeout(lose, 400);
+			}
+		}
+	}
+	
+	function onLastQuestion() {
+		return (currentQuestion == questionsPerLevel);
+	}
+	
+	function fixCodePosition() {
+		$(gameCode).removeClass('fixed-code');
+		$(gameCode).width('auto');
+		$(gameCode).height('auto');
+		$(gameCode).css('max-width', 'none');
+		$(gameCode).css('max-width', $(gameCode).width() + 2 + 'px');
+		$(gameCode).height($(gameCode).height());
+		$(gameCode).addClass('fixed-code');
+	}
+
+	function updateInfo() {
+		gameLevel.textContent = currentLevel;
+		gamePoints.textContent = currentPoints;
+	}
+	
+	function updateProgressBar(percentage) {
+		if (!percentage) {
+			gameProgress.style.opacity = '0';
+			setTimeout(function() {
+				gameProgress.style.width = '0';
+				setTimeout(function() {
+					gameProgress.style.opacity = '1';
+					gameProgress.style.width = '3%';
+				}, 500);
+			}, 200);
+		} else {
+			gameProgress.style.width = percentage + '%';
+		}
+	}
+	
+	function animateIn() {
+		gameCode.style.opacity = '1';
+		
+		var els = document.querySelectorAll('.game-answer');
+		for (var i=0; i < els.length; i++) {
+			$(els[i]).removeClass("right hide");
+		}
+	}
+	
+	function animateOut(newLevel) {
+		gameCode.style.opacity = '0';
+		
+		var els = document.querySelectorAll('.game-answer');
+		$(this).addClass("right");
+		
+		if (onLastQuestion()) {
+			(function(el) {
+				setTimeout(function() { 
+					$(el).removeClass("right");
+					$(el).addClass("hide");
+				}, 300);
+			})(this);
+		}
+		
+		for (var i=0; i < els.length; i++) {
+			if (els[i] != this) $(els[i]).addClass("hide");
+		}	
+	}
+	
+	function animateLevelUp() {
+		gameLevelUp.querySelector('span').textContent = 'LEVEL ' + currentLevel;
+		$(gameLevelUp).fadeIn();
+		setTimeout(function() { $(gameLevelUp).fadeOut(); animateIn(); }, 1500);
+		updateProgressBar();
+	}
+
+	function proceed() {
+		function nextLevel() {
+			currentLevel++;
+			currentPoints += pointsPerQuestion;
+			questionsPerLevel = questionsFunction(currentLevel);
+			
+			loadLevel(currentLevel, questionsPerLevel, function() {
+				currentQuestion = 1;
+				loadQuestion(questions[currentQuestion-1]);
+				pointsPerQuestion = pointsFunction(currentLevel);
+				animateLevelUp();
+				saveSession();
+			});
+		}
+		
+		function nextQuestion() {
+			currentQuestion++;
+			currentPoints += pointsPerQuestion;
+			
+			loadQuestion(questions[currentQuestion-1]);
+			animateIn();
+			saveSession();
+		}
+		
+		if (onLastQuestion()) {
+			nextLevel();
+		} else {
+			nextQuestion();
+		}
+		
+		updateInfo();
+	}
+	
+	function lose() {
+		lostGame = true;
+		gameFinalScore.textContent = currentPoints;
+		gameFinalLevel.textContent = currentLevel;
+		gameFinalAnswered.textContent = questionsAnswered;
+		
+		$(gameOverOverlay).fadeIn();
+		delete localStorage.jsq_session;
+	}
+	
+	function saveSession() {
+		if (lostGame) return;
+		
+		var session = {
+			"data": [
+				currentLevel,
+				currentQuestion,
+				currentAnswer,
+				currentPoints,
+				pointsPerQuestion,
+				questionsPerLevel,
+				questionsAnswered,
+				questions
+			],
+			
+			"saveDate": +new Date()
+		};
+		
+		localStorage.jsq_session = JSON.stringify(session);
+	}
+}
+
+// ##### END OBJECT DEFINITION #### //
+
+
+function main() {
+
+	// Will check if Storage API is usable
+//TODO: define this somewhere else
+	function storageON() {
+		try {
+			localStorage.setItem("__test", "data");
+		} catch (e) {
+			if (/(QUOTA_?EXCEEDED|SecurityError|ReferenceError)/i.test(e.name))
+				return false;
+		} 
+		return true;
+	}
+
+	// Try to resume the game
+
+	RESUMED = false;
+	
+	if (storageON()) {
+	
+		var lastSession = localStorage.jsq_session;
+		
+		if (lastSession) {
+
+			lastSession = JSON.parse(lastSession);
+
+			if (new Date() - lastSession.saveDate < 3600000) {
+		
+				JSQ = new JSQuiz(
+					true, 
+					lastSession.data[0],
+					lastSession.data[1],
+					lastSession.data[2],
+					lastSession.data[3],
+					lastSession.data[4],
+					lastSession.data[5],
+					lastSession.data[6],
+					lastSession.data[7]
+				);
+		
+				RESUMED = true;
+			}
+		}
+	}
+
+	if (!RESUMED) JSQ = new JSQuiz();
+
+	
+//TODO: remove jquery
+
+	$('.app-footer')[0].onpress(function () {
+		$('.app-credits').fadeIn();
+	});
+	$('.app-credits-icon')[0].onpress(function () {
+		$('.app-credits').fadeIn();
+	});
+	$('.game-info .app-title-text')[0].onpress(function () {
+		$('.app-credits').fadeIn();
+	});
+	$('.app-credits-close-button')[0].onpress(function () {
+		$('.app-credits').fadeOut();
+	});
+	
+	$('.scrollable').on("touchmove",function(e){
+		el = e.currentTarget;
+		if (el.offsetHeight < el.scrollHeight || el.offsetWidth < el.scrollWidth)
+			e.stopPropagation();
+	});
+}
+
+$(document).ready(main);
+
+

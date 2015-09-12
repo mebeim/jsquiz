@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<level>
+
+
+<question>
+<snippet><![CDATA[
+var a = [1,2,3],
+    b = false;
+
+for (i in a) {
+   if (i == 3) b = true;
+}
+
+console.log(b);
+]]>
+</snippet>
+<answers>
+	<rightans>false</rightans>
+	<ans>true</ans>
+	<ans>3</ans>
+	<ans>1</ans>
+	<ans>undefined</ans>
+	<ans>SyntaxError</ans>
+	<ans>ReferenceError</ans>
+</answers>
+</question>
+
+<question>
+<snippet><![CDATA[
+var n = 8;
+
+parseInt(n.toString(n));
+]]>
+</snippet>
+<answers>
+	<rightans>10</rightans>
+	<ans>8</ans>
+	<ans>NaN</ans>
+	<ans>undefined</ans>
+	<ans>0</ans>
+	<ans>Infinity</ans>
+	<ans>SyntaxError</ans>
+	<com>Other</com>
+</answers>
+</question>
+
+
+</level>

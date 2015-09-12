@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<level>
+
+
+<question>
+<snippet><![CDATA[
+function hey(hay) {
+	function hiy(hoy) { return hay(hoy()); }
+	function hoy() { return [+hiy(hay)].toString(); }
+	return hoy();
+}
+
+var x = hey(function() { 
+	var y = function() {return !!arguments;};
+	if (arguments.length && arguments[0]()) return false; 
+	return function() { return !y(); };
+})
+
+console.log(x);
+]]>
+</snippet>
+<answers>
+	<rightans>NaN</rightans>
+	<ans>function hey()</ans>
+	<ans>function</ans>
+	<ans>function hoy()</ans>
+	<ans>null</ans>
+	<ans>0</ans>
+	<ans>undefined</ans>
+	<ans>ReferenceError</ans>
+	<com>Other</com>
+</answers>
+</question>
+
+<question>
+<snippet><![CDATA[
+(+[]+[]+(+![]+!![])).indexOf(+!![])
+]]>
+</snippet>
+<answers>
+	<rightcom>Other</rightcom>
+	<ans>2</ans>
+	<ans>0</ans>
+	<ans>"1"</ans>
+	<ans>TypeError</ans>
+	<ans>"0"</ans>
+	<ans>SyntaxError</ans>
+</answers>
+</question>
+
+
+</level>

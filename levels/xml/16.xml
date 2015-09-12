@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<level>
+
+
+<question>
+<snippet><![CDATA[
+[] == []
+]]>
+</snippet>
+<answers>
+	<rightans>false</rightans>
+	<ans>true</ans>
+	<ans>TypeError</ans>
+	<ans>SyntaxError</ans>
+	<ans>ReferenceError</ans>
+	<com>Other</com>
+</answers>
+</question>
+
+
+</level>

@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<level>
+
+
+<question>
+<snippet><![CDATA[
+"The game becomes serious".split(' ')
+	.join('e')
+	.split('e')
+	.toString();
+]]>
+</snippet>
+<answers>
+	<rightans>"Th,,gam,,b,com,s,s,rious"</rightans>
+	<ans>"Th,gam,b,com,s,s,rious"</ans>
+	<ans>"Th,gam,bcomssrious"</ans>
+	<ans>"Thgambcomssrious"</ans>
+	<ans>SyntaxError</ans>
+	<com>Other</com>
+</answers>
+</question
+
+<question>
+<snippet><![CDATA[
+["the", "game", "becomes", "serious"][4, 3, [[a = 1]]]
+]]>
+</snippet>
+<answers>
+	<rightans>"game"</rightans>
+	<ans>undefined</ans>
+	<ans>1</ans>
+	<ans>4</ans>
+	<ans>[4, 3, Array[1]]</ans>
+	<ans>Array[3]</ans>
+	<ans>"becomes"</ans>
+	<ans>"serious"</ans>
+	<ans>SyntaxError</ans>
+</answers>
+</question>
+
+<question>
+<snippet><![CDATA[
+document.body.innerHTML = "&nbsp;";
+document.body.innerHTML
+]]>
+</snippet>
+<answers>
+	<rightcom>Other</rightcom>
+	<ans>" "</ans>
+	<ans>undefined</ans>
+	<ans><![CDATA["<body> </body>"]]></ans>
+	<ans><![CDATA["<br/>"]]></ans>
+	<ans>0</ans>
+	<ans>SyntaxError</ans>
+</answers>
+</question>
+
+<question>
+<snippet><![CDATA[
+Math.max();
+]]>
+</snippet>
+<answers>
+	<rightans>-Infinity</rightans>
+	<ans>Infinity</ans>
+	<ans>0</ans>
+	<ans>-1</ans>
+	<ans>NaN</ans>
+	<ans>undefined</ans>
+	<ans>null</ans>
+	<ans>TypeError</ans>
+</answers>
+</question>
+
+
+</level>

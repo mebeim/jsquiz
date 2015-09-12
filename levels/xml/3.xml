@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<level>
+
+
+<question>
+<snippet><![CDATA[
+console.log = function() {};
+log("Hello!");
+]]>
+</snippet>
+<answers>
+	<rightans>ReferenceError</rightans>
+	<ans>"Hello!"</ans>
+	<ans>Hello!</ans>
+	<ans>undefined</ans>
+	<ans>SyntaxError</ans>
+	<com>Other</com>
+</answers>
+</question>
+
+<question>
+<snippet><![CDATA[
+5.toString();
+]]>
+</snippet>
+<answers>
+	<rightans>SyntaxError</rightans>
+	<ans>"5"</ans>
+	<ans>5</ans>
+	<ans>undefined</ans>
+	<ans>"5.0"</ans>
+	<ans>"Number"</ans>
+	<com>Other</com>
+</answers>
+</question>
+
+<question>
+<snippet><![CDATA[
+typeof typeof 1
+]]>
+</snippet>
+<answers>
+	<rightans>"string"</rightans>
+	<ans>"integer"</ans>
+	<ans>"boolean"</ans>
+	<ans>"int"</ans>
+	<ans>"undefined"</ans>
+	<ans>SyntaxError</ans>
+	<ans>function () { [native code] }</ans>
+	<ans>"function"</ans>
+	<ans>TypeError</ans>
+	<com>Other</com>
+</answers>
+</question>
+
+<question>
+<snippet><![CDATA[
+// Assuming jQuery is imported
+
+typeof(jQuery)
+]]>
+</snippet>
+<answers>
+	<rightans>"function"</rightans>
+	<ans>"object"</ans>
+	<ans>"jquery"</ans>
+	<ans>"number"</ans>
+	<ans>"string"</ans>
+	<com>Other</com>
+</answers>
+</question>
+
+
+</level>

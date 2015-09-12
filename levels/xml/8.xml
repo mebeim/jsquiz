@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<level>
+
+
+<question>
+<snippet><![CDATA[
+function b() {
+   return self;
+}
+
+a = new b();
+alert(a)
+]]>
+</snippet>
+<answers>
+	<rightans>[object Window]</rightans>
+	<ans>[object Object]</ans>
+	<ans>undefined</ans>
+	<ans>null</ans>
+	<ans>"self"</ans>
+	<ans>SyntaxError</ans>
+	<ans>ReferenceError</ans>	
+	<com>Other</com>
+</answers>
+</question>
+
+<question>
+<snippet><![CDATA[
+typeof ([{ }])
+]]>
+</snippet>
+<answers>
+	<rightans>"object"</rightans>
+	<ans>"array"</ans>
+	<ans>"string"</ans>
+	<ans>"undefined"</ans>
+	<ans>null</ans>
+	<ans>TypeError</ans>
+	<ans>SyntaxError</ans>
+	<com>Other</com>
+</answers>
+</question>
+
+
+</level>

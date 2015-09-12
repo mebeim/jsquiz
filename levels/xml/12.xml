@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<level>
+
+
+<question>
+<snippet><![CDATA[
+("a"+(+"-")+"as").toLowerCase()
+]]>
+</snippet>
+<answers>
+	<rightans>"ananas"</rightans>
+	<ans>undefined</ans>
+	<ans>""</ans>
+	<ans>"a-as"</ans>
+	<ans>a-as</ans>
+	<ans>"a\"(\"-\")\"as"</ans>
+	<ans>SyntaxError</ans>
+</answers>
+</question>
+
+<question>
+<snippet><![CDATA[
+encodeURI(encodeURI(encodeURI('%')));
+]]>
+</snippet>
+<answers>
+	<rightans>"%252525"</rightans>
+	<ans>"%25%25%25"</ans>
+	<ans>"%%%"</ans>
+	<ans>undefined</ans>
+	<ans>URIError</ans>
+	<ans><![CDATA["\%\%\%"]]></ans>
+	<ans>""</ans>
+	<ans>"undefined"</ans>
+	<ans>SyntaxError</ans>	
+</answers>
+</question>
+
+<question>
+<snippet><![CDATA[
+var A = 1,
+	B = 2,
+	C = 4,
+	D = 8;
+	
+A | B | C | D
+]]>
+</snippet>
+<answers>
+	<rightans>15</rightans>
+	<ans>"1111"</ans>
+	<ans>0</ans>
+	<ans>true</ans>
+	<ans>false</ans>
+	<ans>1</ans>
+	<ans>NaN</ans>
+	<ans>8</ans>
+	<ans>SyntaxError</ans>
+</answers>
+</question>
+
+
+</level>

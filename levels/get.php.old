@@ -1,0 +1,102 @@
+<?php
+
+header("Content-Type: application/json; charset=UTF-8");
+
+define("APQ", 4);
+$level		=  (int) $_GET["n"];
+$questions	=  empty($_GET["q"]) ? 3 : (int) $_GET["q"];
+
+// Check if a file for that level exists
+if (file_exists("xml/".$level.".xml")) {
+
+	$xml		=  simplexml_load_file(
+						"xml/".$level.".xml",
+						null,
+						LIBXML_NOCDATA
+				   );
+	$to_out		=  Array();
+	$tried_r1	=  Array();
+	$count1		=  count($xml->question)-1;
+	$i			=  0;
+
+	while ($i < $questions && count($tried_r1) <= $count1) {
+		$r1 = mt_rand(0, $count1);
+		// If this question has already been chosen, retry
+		if (in_array($r1, $tried_r1)) continue;
+		$tried_r1[] = $r1;
+
+		$q			=  $xml->question[$r1];
+		$XMLans		=  $q->answers[0]->children();
+		$snip		=  trim($q->snippet[0]);
+		$ans		=  Array();
+		$id			=  null;
+		$com		=  Array();
+		$tried_r2	=  Array();
+		$count2		=  count($XMLans)-2;
+		$j			=  0;
+		
+		// Take the right answer
+		if (property_exists($XMLans, "rightans")) {
+			$ans[]	=  Array( (string) $q->answers[0]->rightans,
+					          Array("right") );
+			unset($q->answers[0]->rightans);
+		}
+		else {
+			$ans[]	=  Array( (string) $q->answers[0]->rightcom,
+					          Array("right", "com") );
+			unset($q->answers[0]->rightcom);
+		}
+
+		// Choose randomly other answers/comments
+		while ($j < APQ-1 && count($tried_r2) <= $count2) {
+			$r2 = mt_rand(0, $count2);
+			if (in_array($r2, $tried_r2)) continue;
+			$tried_r2[] = $r2;
+
+			$ans[]	= Array( (string) $XMLans[$r2],
+					         Array($XMLans[$r2]->getName()) );
+			$j++;
+		}
+		
+		// Shuffle answers
+		shuffle($ans);
+		
+		// Position "other" at the end
+		for ($k=0; $k < count($ans); $k++) {
+			if ($ans[$k][0] == "Other") {
+				$temp = $ans[$k];
+				array_splice($ans, $k, 1);
+				$ans[] = $temp;
+				break;
+			}
+		}
+		
+		// Get ids and remove labels from $ans
+		for ($k=0; $k < count($ans); $k++) {
+			if (in_array("right", $ans[$k][1]))
+				$id = $k;
+			if (in_array("com", $ans[$k][1]))
+				$com[] = $k;
+
+			$ans[$k] = $ans[$k][0];
+		}
+		
+		
+		// Prepare output
+		$to_out[]	=  Array(
+			"snippet"       =>  $snip,
+			"right_answer"  =>  $id,
+			"comments"		=>  $com,
+			"answers"       =>  $ans,
+		);
+		$i++;
+	}
+	
+	// OUTPUT
+	echo json_encode(Array("status" => "ok", "data" => $to_out));
+	
+}
+
+else echo '{ "status": "error", "type": "LEVEL_NOT_EXIST" }';
+
+?>

@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<level>
+
+
+<question>
+<snippet><![CDATA[
+var arr = [3e-2, 3, -1, 5.99];
+
+for (var i = 0; i < 4; i++) {
+	arr[i] = ~~arr[i];
+}
+
+arr;
+]]>
+</snippet>
+<answers>
+	<rightans>[0, 3, -1, 5]</rightans>
+	<ans>[0.03, 3, -1, 5.99]</ans>
+	<ans>[0, 0, 0, 0]</ans>
+	<ans>[0, 1, 0, 1]</ans>
+	<ans>[true, false, true, false]</ans>
+	<ans>[true, true, true, true]</ans>
+	<ans>[-1, -4, 0, -6]</ans>
+	<ans>[undefined, undefined, undefined, undefined]</ans>
+	<ans>SyntaxError</ans>
+	<com>Other</com>
+</answers>
+</question>
+
+<question>
+<snippet><![CDATA[
+"hello" == {toString: function() {return !"hello"}}
+]]>
+</snippet>
+<answers>
+	<rightans>false</rightans>
+	<ans>true</ans>
+	<ans>"true"</ans>
+	<ans>SyntaxError</ans>
+	<ans>"hello"</ans>
+	<ans>ReferenceError</ans>
+	<com>Other</com>
+</answers>
+</question>
+
+<question>
+<snippet><![CDATA[
+(function x(){
+	return x();
+})();
+]]>
+</snippet>
+<answers>
+	<rightans>RangeError</rightans>
+	<ans>undefined</ans>
+	<ans>function x()</ans>
+	<ans>Object</ans>
+	<ans>null</ans>
+	<ans>0</ans>
+	<ans>ReferenceError</ans>	
+	<com>Other</com>
+</answers>
+</question>
+
+<question>
+<snippet><![CDATA[
+void(void(0))
+]]>
+</snippet>
+<answers>
+	<rightans>undefined</rightans>
+	<ans>0</ans>
+	<ans>"void(0)"</ans>
+	<ans>"0"</ans>
+	<ans>Object</ans>
+	<ans>null</ans>
+	<ans>SyntaxError</ans>
+	<com>Other</com>
+</answers>
+</question>
+
+<question>
+<snippet><![CDATA[
+{}
+]]>
+</snippet>
+<answers>
+	<rightans>undefined</rightans>
+	<ans>Object</ans>
+	<ans>{}</ans>
+	<ans>object Object</ans>
+	<ans>object</ans>
+	<ans>""</ans>
+	<ans>0</ans>
+	<ans>-1</ans>
+</answers>
+</question>
+
+<question>
+<snippet><![CDATA[
+var n = 0;
+if false {
+	n = 1;
+}
+
+console.log(n);
+]]>
+</snippet>
+<answers>
+	<rightans>SyntaxError</rightans>
+	<ans>0</ans>
+	<ans>1</ans>
+	<ans>"0"</ans>
+	<ans>"1"</ans>
+	<ans>true</ans>
+	<ans>false</ans>
+	<ans>undefined</ans>	
+	<com>Other</com>
+</answers>
+</question>
+
+
+</level>
