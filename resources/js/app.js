@@ -4,6 +4,7 @@
 		MAX_PAUSE_TIME		= 3600000, // 1 hour
 		MOBILE				= window.MOBILE,
 		lostGame,
+//TODO: we should avoid using ordered arguments for data, the best would be to pass the whole session obj as second arg
 		currentLevel		= arguments[1],
 		currentQuestion		= arguments[2],
 		currentAnswer		= arguments[3],
@@ -103,6 +104,8 @@
 		}
 	}
 	
+	// Will map for each level an amount of questions
+//TODO: I don't like all those "if"s, maybe we should hack something with a switch, or better, make a math function.
 	function questionsFunction(x) {
 		if (x > 30) return;
 		if (x == 30) return 30;
@@ -118,6 +121,7 @@
 		return;
 	}
 	
+	// Will assing an amount of points for each question
 	function pointsFunction(x) {
 		return Math.round(Math.pow(x, 1.8)/1.5);
 	}
@@ -132,7 +136,9 @@
 		});
 	}
 	
+	// Will load question data
 	function loadQuestion(q) {
+//TODO: should we throw errors instead?
 		if (!q) return "loadQuestion error: no question given";
 
 		gameCode.className = '';
@@ -149,6 +155,7 @@
 		return true;
 	}
 	
+	// Will check if the chosen answer is correct
 	function checkAnswer(event) {
 		function animate(r) {
 			var others;
@@ -172,10 +179,14 @@
 		}
 	}
 	
-	function onLastQuestion() {
+	// Self explanatory
+//TODO: declare functions in a more coherent order (e.g. core, private, public)
+	function isLastQuestion() {
 		return (currentQuestion == questionsPerLevel);
 	}
 	
+	// Will position the code to the center
+//TODO: maybe we should consider using flex when possible
 	function fixCodePosition() {
 		$(gameCode).removeClass('fixed-code');
 		$(gameCode).width('auto');
@@ -186,11 +197,13 @@
 		$(gameCode).addClass('fixed-code');
 	}
 
+	// Will update GUI status info
 	function updateInfo() {
 		gameLevel.textContent = currentLevel;
 		gamePoints.textContent = currentPoints;
 	}
 	
+	// Will update GUI progress bar
 	function updateProgressBar(percentage) {
 		if (!percentage) {
 			gameProgress.style.opacity = '0';
@@ -221,7 +234,7 @@
 		var els = document.querySelectorAll('.game-answer');
 		$(this).addClass("right");
 		
-		if (onLastQuestion()) {
+		if (isLastQuestion()) {
 			(function(el) {
 				setTimeout(function() { 
 					$(el).removeClass("right");
@@ -266,7 +279,7 @@
 			saveSession();
 		}
 		
-		if (onLastQuestion()) {
+		if (isLastQuestion()) {
 			nextLevel();
 		} else {
 			nextQuestion();
@@ -287,7 +300,8 @@
 	
 	function saveSession() {
 		if (lostGame) return;
-		
+
+//TODO: in order to pass this obj to the constructor we should save it as obj, not array
 		var session = {
 			"data": [
 				currentLevel,
