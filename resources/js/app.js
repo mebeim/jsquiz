@@ -1,4 +1,4 @@
-﻿function JSQuiz(RESUME) {	
+﻿function JSQuiz(RESUME) {
 	var OBJ 				= this,
 		MAX_LEVEL			= 30,
 		MAX_PAUSE_TIME		= 3600000, // 1 hour
@@ -43,21 +43,21 @@
 			animateIn();
 		});
 	}
-	
+
 	// Will restart the game
 	this.restart = function() {
 		init();
 		$(gameOverOverlay).fadeOut();
 		OBJ.start();
 	}
-	
+
 	// Will quit the game
 	this.quit = function() {
 		init();
-		$(gameOverOverlay).fadeOut();		
+		$(gameOverOverlay).fadeOut();
 		$(gameStartOverlay).fadeIn();
 	}
-	
+
 	// Will retrieve info about the current level
 	this.levelInfo = function(a, b) {
 		a == a || 1;
@@ -67,7 +67,7 @@
 			console.log((i==a ? 'L' : 'l') + 'evel ' + i + ' will have ' + questionsFunction(i) + ' questions each one worth ' + pointsFunction(i) + ' points' + (i==b ? '.' : ';'));
 		}
 	}
-	
+
 	// Binding functions to elements
 	gameStart.onpress(this.start);
 	gameRestart.onpress(this.restart);
@@ -76,9 +76,9 @@
 	$(gameAnswers).each(function(i, el) {
 		this.code = this.querySelector('code');
 	});
-	
+
 	init();
-	
+
 
 	// INIT function
 	function init() {
@@ -104,7 +104,7 @@
 			$('.wrong').removeClass('wrong');
 		}
 	}
-	
+
 	// Will map for each level an amount of questions
 //TODO: I don't like all those "if"s, maybe we should hack something with a switch, or better, make a math function.
 	function questionsFunction(x) {
@@ -121,12 +121,12 @@
 		if (x >= 1) return 3;
 		return;
 	}
-	
+
 	// Will assing an amount of points for each question
 	function pointsFunction(x) {
 		return Math.round(Math.pow(x, 1.8)/1.5);
 	}
-	
+
 	// Will load level n with q questions
 	function loadLevel(n, q, callback) {
 		XMLp.parseLevel(n, q, function(response) {
@@ -136,7 +136,7 @@
 			}
 		});
 	}
-	
+
 	// Will load question data
 	function loadQuestion(q) {
 //TODO: should we throw errors instead?
@@ -147,20 +147,20 @@
 		fixCodePosition();
 		hljs.highlightBlock(gameCode);
 		currentAnswer = q.right_answer;
-		
+
 		for (var i = 0; i < q.answers.length; i++) {
 			gameAnswers[i].code.textContent = q.answers[i];
 			$(gameAnswers[i])[~q.comments.indexOf(i) ? 'addClass' : 'removeClass']('comment');
 		}
-		
+
 		return true;
 	}
-	
+
 	// Will check if the chosen answer is correct
 	function checkAnswer(event) {
 		function animate(r) {
 			var others;
-			
+
 			if (r) {
 				updateProgressBar(currentQuestion / questionsPerLevel * 100);
 				animateOut.call(this);
@@ -168,7 +168,7 @@
 			} else
 				$(this).addClass('wrong');
 		}
-		
+
 		if (!lostGame) {
 			if (parseInt(this.dataset.answer) == currentAnswer) {
 				animate.call(this, true);
@@ -179,13 +179,13 @@
 			}
 		}
 	}
-	
+
 	// Self explanatory
 //TODO: declare functions in a more coherent order (e.g. core, private, public)
 	function isLastQuestion() {
 		return (currentQuestion == questionsPerLevel);
 	}
-	
+
 	// Will position the code to the center
 //TODO: maybe we should consider using flex when possible
 	function fixCodePosition() {
@@ -203,7 +203,7 @@
 		gameLevel.textContent = currentLevel;
 		gamePoints.textContent = currentPoints;
 	}
-	
+
 	// Will update GUI progress bar
 	function updateProgressBar(percentage) {
 		if (!percentage) {
@@ -219,22 +219,22 @@
 			gameProgress.style.width = percentage + '%';
 		}
 	}
-	
+
 	function animateIn() {
 		gameCode.style.opacity = '1';
-		
+
 		var els = document.querySelectorAll('.game-answer');
 		for (var i=0; i < els.length; i++) {
 			$(els[i]).removeClass("right hide");
 		}
 	}
-	
+
 	function animateOut(newLevel) {
 		gameCode.style.opacity = '0';
-		
+
 		var els = document.querySelectorAll('.game-answer');
 		$(this).addClass("right");
-		
+
 		if (isLastQuestion()) {
 			(function(el) {
 				setTimeout(function() { 
@@ -243,12 +243,12 @@
 				}, 300);
 			})(this);
 		}
-		
+
 		for (var i=0; i < els.length; i++) {
 			if (els[i] != this) $(els[i]).addClass("hide");
-		}	
+		}
 	}
-	
+
 	function animateLevelUp() {
 		gameLevelUp.querySelector('span').textContent = 'LEVEL ' + currentLevel;
 		$(gameLevelUp).fadeIn();
@@ -261,7 +261,7 @@
 			currentLevel++;
 			currentPoints += pointsPerQuestion;
 			questionsPerLevel = questionsFunction(currentLevel);
-			
+
 			loadLevel(currentLevel, questionsPerLevel, function() {
 				currentQuestion = 1;
 				loadQuestion(questions[currentQuestion-1]);
@@ -270,35 +270,35 @@
 				saveSession();
 			});
 		}
-		
+
 		function nextQuestion() {
 			currentQuestion++;
 			currentPoints += pointsPerQuestion;
-			
+
 			loadQuestion(questions[currentQuestion-1]);
 			animateIn();
 			saveSession();
 		}
-		
+
 		if (isLastQuestion()) {
 			nextLevel();
 		} else {
 			nextQuestion();
 		}
-		
+
 		updateInfo();
 	}
-	
+
 	function lose() {
 		lostGame = true;
 		gameFinalScore.textContent = currentPoints;
 		gameFinalLevel.textContent = currentLevel;
 		gameFinalAnswered.textContent = questionsAnswered;
-		
+
 		$(gameOverOverlay).fadeIn();
 		delete localStorage.jsq_session;
 	}
-	
+
 	function saveSession() {
 		if (lostGame) return;
 
@@ -314,10 +314,10 @@
 				questionsAnswered,
 				questions
 			],
-			
+
 			"saveDate": +new Date()
 		};
-		
+
 		localStorage.jsq_session = JSON.stringify(session);
 	}
 }
@@ -342,17 +342,17 @@ function main() {
 	// Try to resume the game
 
 	RESUMED = false;
-	
+
 	if (storageON()) {
-	
+
 		var lastSession = localStorage.jsq_session;
-		
+
 		if (lastSession) {
 
 			lastSession = JSON.parse(lastSession);
 
 			if (new Date() - lastSession.saveDate < 3600000) {
-		
+
 				JSQ = new JSQuiz(
 					true, 
 					lastSession.data[0],
@@ -364,7 +364,7 @@ function main() {
 					lastSession.data[6],
 					lastSession.data[7]
 				);
-		
+
 				RESUMED = true;
 			}
 		}
@@ -372,7 +372,7 @@ function main() {
 
 	if (!RESUMED) JSQ = new JSQuiz();
 
-	
+
 //TODO: remove jquery
 
 	$('.app-footer')[0].onpress(function () {
@@ -387,7 +387,7 @@ function main() {
 	$('.app-credits-close-button')[0].onpress(function () {
 		$('.app-credits').fadeOut();
 	});
-	
+
 	$('.scrollable').on("touchmove",function(e){
 		el = e.currentTarget;
 		if (el.offsetHeight < el.scrollHeight || el.offsetWidth < el.scrollWidth)
