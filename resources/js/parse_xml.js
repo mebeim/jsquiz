@@ -2,7 +2,7 @@
 
 // Object: XMLParser (no arguments)
 // Methods:
-// .parseLevel(n, q, callback)		see line #113
+// .parseLevel(n, q, callback)
 
 
 function XMLParser() {
