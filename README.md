@@ -2,12 +2,14 @@
 
 *«JavaScript is the world's most misunderstood programming language. This quiz will test your JavaScript knowledge in depth.»*
 
-This project is a **work in progress**: a lot has been done, a lot has to be redone/fixed.
+This project is a ***work in progress***: a lot has been done, but also needs to be reworked or fixed.
 
-Don't expect a fully working quiz, in fact we didn't even completed the database of questions (your collaboration would be apreciated!).
+Don't expect a fully working quiz, in fact we didn't even complete the questions database. If you wish to help us suggesting new questions or features, **your collaboration would be apreciated**!
 
-All of these considered, you can see this project live here: http://mebeim.github.io/jsquiz
+You can try a live demo [HERE][1].
+
+[1]: http://mebeim.github.io/jsquiz
 
 ----------------
 
-*(c) Marco Bonelli & Matteo Bernardini*
+*&copy; 2015 Marco Bonelli & Matteo Bernardini*
