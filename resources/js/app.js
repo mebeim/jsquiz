@@ -78,15 +78,14 @@
 
 	// INIT function
 	function init() {
-		RESUME				= RESUME 					||  {};
-		currentLevel		= RESUME.currentLevel 		||  1;
-		currentQuestion		= RESUME.currentQuestion	||  1;
-		currentAnswer		= RESUME.currentAnswer		||  0;
-		currentPoints		= RESUME.currentPoints		||  0;
-		pointsPerQuestion	= RESUME.PPQ				||  1;
-		questionsPerLevel	= RESUME.QPL				||  3;
-		questionsAnswered	= RESUME.questionsAnswered	||  0;
-		questions			= RESUME.questions			||  new Array();
+		currentLevel		= RESUME && RESUME.currentLevel 		||  1;
+		currentQuestion		= RESUME && RESUME.currentQuestion		||  1;
+		currentAnswer		= RESUME && RESUME.currentAnswer		||  0;
+		currentPoints		= RESUME && RESUME.currentPoints		||  0;
+		pointsPerQuestion	= RESUME && RESUME.PPQ					||  1;
+		questionsPerLevel	= RESUME && RESUME.QPL					||  3;
+		questionsAnswered	= RESUME && RESUME.questionsAnswered	||  0;
+		questions			= RESUME && RESUME.questions			||  new Array();
 		if (RESUME) {
 			lostGame		= false;
 			loadQuestion(questions[currentQuestion-1]);
@@ -95,7 +94,7 @@
 			$(gameStartOverlay).fadeOut();
 			$(selectorAnswers).each(function(i, el) { el.onpress(checkAnswer); });
 			animateIn();
-			RESUME = null;
+			RESUME = undefined;
 		}
 		else {
 			updateProgressBar();
