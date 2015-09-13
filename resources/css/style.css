@@ -31,6 +31,7 @@ h1 {
 code {
 	tab-size: 4;
 	white-space: pre-wrap;
+	cursor: default;
 }
 
 
