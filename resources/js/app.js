@@ -4,6 +4,7 @@
 		MAX_PAUSE_TIME		= 3600000, // 1 hour
 		MOBILE				= window.MOBILE,
 		lostGame,
+		XMLp				= new XMLParser(),
 //TODO: we should avoid using ordered arguments for data, the best would be to pass the whole session obj as second arg
 		currentLevel		= arguments[1],
 		currentQuestion		= arguments[2],
@@ -126,8 +127,8 @@
 		return Math.round(Math.pow(x, 1.8)/1.5);
 	}
 	
+	// Will load level n with q questions
 	function loadLevel(n, q, callback) {
-		XMLp = window.XMLp || new XMLParser();
 		XMLp.parseLevel(n, q, function(response) {
 			if (response.status == "ok") {
 				questions = response.data;
