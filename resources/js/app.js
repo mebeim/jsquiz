@@ -86,8 +86,8 @@
 		questionsPerLevel	= RESUME && RESUME.QPL					||  3;
 		questionsAnswered	= RESUME && RESUME.questionsAnswered	||  0;
 		questions			= RESUME && RESUME.questions			||  new Array();
+		lostGame			= false;
 		if (RESUME) {
-			lostGame		= false;
 			loadQuestion(questions[currentQuestion-1]);
 			updateInfo();
 			updateProgressBar((currentQuestion-1) / questionsPerLevel * 100);
