@@ -3,17 +3,8 @@
 		MAX_LEVEL			= 30,
 		MAX_PAUSE_TIME		= 3600000, // 1 hour
 		MOBILE				= window.MOBILE,
-		lostGame,
+		lostGame, currentLevel, currentQuestion, currentAnswer, currentPoints, pointsPerQuestion, questionsPerLevel, questionsAnswered, questions,
 		XMLp				= new XMLParser(),
-//TODO: we should avoid using ordered arguments for data, the best would be to pass the whole session obj as second arg
-		currentLevel		= arguments[1],
-		currentQuestion		= arguments[2],
-		currentAnswer		= arguments[3],
-		currentPoints		= arguments[4],
-		pointsPerQuestion	= arguments[5],
-		questionsPerLevel	= arguments[6],
-		questionsAnswered	= arguments[7],
-		questions			= arguments[8],
 		selectorAnswers		= '.game-answer',
 // TODO: don't use querySelector when possible, getElementsByClassName has better performance (should make a separate func maybe?)
 		gameStartOverlay	= document.querySelector('.app-start'),
@@ -30,6 +21,9 @@
 		gameFinalLevel		= document.querySelector('.game-final-level'),
 		gameFinalAnswered	= document.querySelector('.game-final-answered'),
 		gameAnswers			= document.querySelectorAll(selectorAnswers);
+
+
+	// == PUBLIC == //
 
 	// Will start the game
 	this.start = function() {
@@ -80,26 +74,30 @@
 	init();
 
 
+	// == PRIVATE == //
+
 	// INIT function
 	function init() {
+		RESUME				= RESUME 					||  {};
+		currentLevel		= RESUME.currentLevel 		||  1;
+		currentQuestion		= RESUME.currentQuestion	||  1;
+		currentAnswer		= RESUME.currentAnswer		||  0;
+		currentPoints		= RESUME.currentPoints		||  0;
+		pointsPerQuestion	= RESUME.PPQ				||  1;
+		questionsPerLevel	= RESUME.QPL				||  3;
+		questionsAnswered	= RESUME.questionsAnswered	||  0;
+		questions			= RESUME.questions			||  new Array();
 		if (RESUME) {
+			lostGame		= false;
 			loadQuestion(questions[currentQuestion-1]);
 			updateInfo();
 			updateProgressBar((currentQuestion-1) / questionsPerLevel * 100);
 			$(gameStartOverlay).fadeOut();
 			$(selectorAnswers).each(function(i, el) { el.onpress(checkAnswer); });
 			animateIn();
-			RESUME = false;
-		} else {
-			lostGame			= false;
-			currentLevel		= 1;
-			currentQuestion		= 1;
-			currentAnswer		= 0;
-			currentPoints		= 0;
-			pointsPerQuestion	= 1;
-			questionsPerLevel	= 3;
-			questionsAnswered	= 0;
-			questions			= new Array();
+			RESUME = null;
+		}
+		else {
 			updateProgressBar();
 			$('.wrong').removeClass('wrong');
 		}
@@ -302,18 +300,17 @@
 	function saveSession() {
 		if (lostGame) return;
 
-//TODO: in order to pass this obj to the constructor we should save it as obj, not array
 		var session = {
-			"data": [
-				currentLevel,
-				currentQuestion,
-				currentAnswer,
-				currentPoints,
-				pointsPerQuestion,
-				questionsPerLevel,
-				questionsAnswered,
-				questions
-			],
+			"data": {
+				"currentLevel":			currentLevel,
+				"currentQuestion":		currentQuestion,
+				"currentAnswer":		currentAnswer,
+				"currentPoints":		currentPoints,
+				"PPQ":					pointsPerQuestion,
+				"QPL":					questionsPerLevel,
+				"questionsAnswered":	questionsAnswered,
+				"questions":			questions
+			},
 
 			"saveDate": +new Date()
 		};
@@ -353,17 +350,7 @@ function main() {
 
 			if (new Date() - lastSession.saveDate < 3600000) {
 
-				JSQ = new JSQuiz(
-					true, 
-					lastSession.data[0],
-					lastSession.data[1],
-					lastSession.data[2],
-					lastSession.data[3],
-					lastSession.data[4],
-					lastSession.data[5],
-					lastSession.data[6],
-					lastSession.data[7]
-				);
+				JSQ = new JSQuiz(lastSession.data);
 
 				RESUMED = true;
 			}
