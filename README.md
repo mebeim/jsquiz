@@ -1,4 +1,4 @@
-= JSQuiz =
+# JSQuiz #
 
 *«JavaScript is the world's most misunderstood programming language. This quiz will test your JavaScript knowledge in depth.»*
 
