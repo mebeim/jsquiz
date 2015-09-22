@@ -22,7 +22,7 @@ function XMLParser() {
 		req.onreadystatechange = function() {
 			if (req.readyState == 4) {
 				if (req.status == 200)
-					parseLevel(200, req.responseXML);
+					parseLevel(200, req.responseXML || (new DOMParser()).parseFromString(req.responseText,"application/xml"));
 				else
 					parseLevel(req.status);
 			}
