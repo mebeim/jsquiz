@@ -384,3 +384,15 @@ function main() {
 $(document).ready(main);
 
 
+// Some workarounds for unsupported methods
+
+Object.getOwnPropertyDescriptor(Node.prototype, "children") || Object.defineProperty(
+	Node.prototype,
+	"children",
+	{
+		get: function() {
+//TODO: return an instance of HTMLCollection
+			return Array.prototype.filter.call(this.childNodes, function(el){return el.nodeType==1;});
+		}
+	}
+);
