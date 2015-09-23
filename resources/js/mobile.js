@@ -25,16 +25,18 @@ if (MOBILE) {
 
 	addEventListener("load", function(){
 		if (STANDALONE) {
+			var root = document.documentElement;
 			if (RESUMED)
-				setTimeout(function(){ $('html').removeClass("splash loading"); }, 500);
+				setTimeout(function(){ root.removeClass("splash loading"); }, 500);
 			else {
-				$('html').addClass("load");
-				$('html').removeClass("loading");
-				setTimeout(function(){ $('html').removeClass("splash load"); }, 1000);
+				root.addClass("load");
+				root.removeClass("loading");
+				setTimeout(function(){ root.removeClass("splash load"); }, 1000);
 			}
 		}
 	});
 
+	// Prevent inappropriate scrolling on iOS (simulate app)
 	document.addEventListener("touchmove", function(e){e.preventDefault();});
 
 }
