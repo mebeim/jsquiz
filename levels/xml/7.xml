@@ -19,6 +19,7 @@ console.log(b);
 	<ans>true</ans>
 	<ans>3</ans>
 	<ans>1</ans>
+	<ans>"1,2,3"</ans>
 	<ans>undefined</ans>
 	<ans>SyntaxError</ans>
 	<ans>ReferenceError</ans>

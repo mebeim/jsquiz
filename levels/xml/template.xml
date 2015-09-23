@@ -18,6 +18,7 @@
 	<ans></ans>
 	<ans>SyntaxError</ans>
 	<ans>ReferenceError</ans>
+	<ans>TypeError</ans>
 	<com>Other</com>
 </answers>
 </question>

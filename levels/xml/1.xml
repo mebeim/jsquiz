@@ -28,10 +28,10 @@ stuff
 ]]>
 </snippet>
 <answers>
-	<rightans>1.1</rightans>
-	<ans>1</ans>
-	<ans>"1.1"</ans>
-	<ans>"1"</ans>
+	<rightans>Click Me</rightans>
+	<ans>true</ans>
+	<ans>false</ans>
+	<ans>NaN</ans>
 	<ans>SyntaxError</ans>
 	<com>Other</com>
 </answers>
@@ -64,9 +64,8 @@ stuff
 	<ans>1</ans>
 	<ans>0</ans>
 	<ans>SyntaxError</ans>
-	<ans>5</ans>
-	<ans>"10"</ans>
-	<ans>"1"</ans>
+	<ans>15</ans>
+	<ans>"15.0"</ans>
 </answers>
 </question>
 
@@ -94,7 +93,6 @@ false || false
 <answers>
 	<rightans>false</rightans>
 	<ans>true</ans>
-	<ans>"false"</ans>
 	<ans>undefined</ans>
 	<ans>NaN</ans>
 	<ans>SyntaxError</ans>
@@ -111,11 +109,11 @@ x.length
 </snippet>
 <answers>
 	<rightcom>Other</rightcom>
+	<ans>undefined</ans>
 	<ans>ReferenceError</ans>
 	<ans>1</ans>
 	<ans>0</ans>
 	<ans>0.3</ans>
-	<ans>SyntaxError</ans>
 </answers>
 </question>
 
@@ -132,7 +130,6 @@ x.length
 	<ans>27</ans>
 	<ans>1</ans>
 	<ans>SyntaxError</ans>
-	<ans>ReferenceError</ans>	
 	<com>Other</com>
 </answers>
 </question>

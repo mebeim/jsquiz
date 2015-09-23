@@ -22,7 +22,7 @@ console.log(a);
 	<rightans>hey</rightans>
 	<ans>a</ans>
 	<ans>"hey"</ans>
-	<ans>function</ans>
+	<ans>function level1() { return "hey"; }</ans>
 	<ans>ReferenceError</ans>	
 	<com>Other</com>
 </answers>
@@ -37,7 +37,6 @@ console.log(a);
 	<rightans>true</rightans>
 	<ans>false</ans>
 	<ans>0</ans>
-	<ans>"false"</ans>
 	<ans>undefined</ans>
 	<ans>SyntaxError</ans>
 	<ans>ReferenceError</ans>	
@@ -53,10 +52,11 @@ console.log(a);
 <answers>
 	<rightans>1</rightans>
 	<ans>2</ans>
-	<ans>0</ans>
+	<ans>NaN</ans>
 	<ans>true</ans>
-	<ans>false</ans>
-	<ans>"1"</ans>
+	<ans>"false1"</ans>
+	<ans>"true1"</ans>
+	<ans>TypeError</ans>
 	<ans>SyntaxError</ans>
 	<com>Other</com>
 </answers>
@@ -78,8 +78,7 @@ console.log(j);
 	<ans>30</ans>
 	<ans>31</ans>
 	<ans>0</ans>
-	<ans>SyntaxError</ans>
-	<com>Other</com>
+	<ans>RangeError</ans>
 </answers>
 </question>
 
@@ -90,7 +89,7 @@ typeof new String("hello");
 </snippet>
 <answers>
 	<rightans>"object"</rightans>
-	<ans>obejct</ans>
+	<ans>object</ans>
 	<ans>"string"</ans>
 	<ans>string</ans>
 	<ans>undefined</ans>
