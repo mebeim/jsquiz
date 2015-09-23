@@ -80,7 +80,7 @@ stuff
 	<ans>true</ans>
 	<ans>false</ans>
 	<ans>undefined</ans>
-	<ans>Nan</ans>
+	<ans>NaN</ans>
 	<ans>SyntaxError</ans>
 	<ans>"1"</ans>
 </answers>
