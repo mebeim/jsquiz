@@ -6,7 +6,7 @@
 		lostGame, currentLevel, currentQuestion, currentAnswer, currentPoints, pointsPerQuestion, questionsPerLevel, questionsAnswered, questions,
 		XMLp				= new XMLParser(),
 		selectorAnswers		= '.game-answer',
-// TODO: don't use querySelector when possible, getElementsByClassName has better performance (should make a separate func maybe?)
+// TODO: make a custom selector func (replacing jq)
 		gameStartOverlay	= document.querySelector('.app-start'),
 		gameOverOverlay		= document.querySelector('.game-over-overlay'),
 		gameStart			= document.querySelector('.game-start-button'),
@@ -98,7 +98,7 @@
 		}
 		else {
 			updateProgressBar();
-			$('.wrong').removeClass('wrong');
+			document.querySelector('.wrong').removeClass('wrong');
 		}
 	}
 
@@ -147,7 +147,7 @@
 
 		for (var i = 0; i < q.answers.length; i++) {
 			gameAnswers[i].code.textContent = q.answers[i];
-			$(gameAnswers[i])[~q.comments.indexOf(i) ? 'addClass' : 'removeClass']('comment');
+			gameAnswers[i][~q.comments.indexOf(i) ? 'addClass' : 'removeClass']('comment');
 		}
 
 		return true;
@@ -163,7 +163,7 @@
 				animateOut.call(this);
 				questionsAnswered++;
 			} else
-				$(this).addClass('wrong');
+				this.addClass('wrong');
 		}
 
 		if (!lostGame) {
@@ -186,13 +186,13 @@
 	// Will position the code to the center
 //TODO: maybe we should consider using flex when possible
 	function fixCodePosition() {
-		$(gameCode).removeClass('fixed-code');
+		gameCode.removeClass('fixed-code');
 		$(gameCode).width('auto');
 		$(gameCode).height('auto');
 		$(gameCode).css('max-width', 'none');
 		$(gameCode).css('max-width', $(gameCode).width() + 2 + 'px');
 		$(gameCode).height($(gameCode).height());
-		$(gameCode).addClass('fixed-code');
+		gameCode.addClass('fixed-code');
 	}
 
 	// Will update GUI status info
@@ -222,7 +222,7 @@
 
 		var els = document.querySelectorAll('.game-answer');
 		for (var i=0; i < els.length; i++) {
-			$(els[i]).removeClass("right hide");
+			els[i].removeClass("right hide");
 		}
 	}
 
@@ -230,19 +230,19 @@
 		gameCode.style.opacity = '0';
 
 		var els = document.querySelectorAll('.game-answer');
-		$(this).addClass("right");
+		this.addClass("right");
 
 		if (isLastQuestion()) {
 			(function(el) {
 				setTimeout(function() { 
-					$(el).removeClass("right");
-					$(el).addClass("hide");
+					el.removeClass("right");
+					el.addClass("hide");
 				}, 300);
 			})(this);
 		}
 
 		for (var i=0; i < els.length; i++) {
-			if (els[i] != this) $(els[i]).addClass("hide");
+			if (els[i] != this) els[i].addClass("hide");
 		}
 	}
 
@@ -396,3 +396,33 @@ Object.getOwnPropertyDescriptor(Node.prototype, "children") || Object.defineProp
 		}
 	}
 );
+
+// Other useful stuff replacing jq
+
+Object.defineProperties(Element.prototype, {
+	// This stuff is hackerish, if classList is supported we use it, otherwise we fallback on manual
+	addClass: {
+		value: function(cl) {
+			cl = cl.toLowerCase();
+			this.classList ?
+			this.classList.add.apply(this.classList, cl.split(" ")) :
+			// prevent adding the className if it's already there
+			~this.className.split(" ").indexOf(cl) || (this.className = (this.className+" "+cl).trim());
+		}
+	},
+	removeClass: {
+		value: function(rms) {
+			rms = rms.toLowerCase();
+			if (this.classList)
+				this.classList.remove.apply(this.classList, rms.split(" "));
+			else {
+				rms = rms.split(" ");
+				cls = this.className.split(" ");
+				for (var i=0, j; rm = rms[i]; i++)
+					// Remove all occurences of the same className
+					while (~(j = cls.indexOf(rm))) cls.splice(j,1);
+				this.className = cls.join(" ").trim();
+			}
+		}
+	}
+});
