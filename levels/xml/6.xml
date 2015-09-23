@@ -35,9 +35,9 @@ arr;
 <answers>
 	<rightans>false</rightans>
 	<ans>true</ans>
-	<ans>"true"</ans>
 	<ans>SyntaxError</ans>
 	<ans>"hello"</ans>
+	<ans>TypeError</ans>
 	<ans>ReferenceError</ans>
 	<com>Other</com>
 </answers>
@@ -53,12 +53,11 @@ arr;
 <answers>
 	<rightans>RangeError</rightans>
 	<ans>undefined</ans>
-	<ans>function x()</ans>
+	<ans>function x() {return x(); }</ans>
 	<ans>Object</ans>
 	<ans>null</ans>
 	<ans>0</ans>
-	<ans>ReferenceError</ans>	
-	<com>Other</com>
+	<ans>ReferenceError</ans>
 </answers>
 </question>
 
@@ -71,7 +70,7 @@ void(void(0))
 	<rightans>undefined</rightans>
 	<ans>0</ans>
 	<ans>"void(0)"</ans>
-	<ans>"0"</ans>
+	<ans>NaN</ans>
 	<ans>Object</ans>
 	<ans>null</ans>
 	<ans>SyntaxError</ans>
@@ -112,9 +111,8 @@ console.log(n);
 	<ans>1</ans>
 	<ans>"0"</ans>
 	<ans>"1"</ans>
-	<ans>true</ans>
-	<ans>false</ans>
-	<ans>undefined</ans>	
+	<ans>undefined</ans>
+	<ans>ReferenceError</ans>
 	<com>Other</com>
 </answers>
 </question>

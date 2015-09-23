@@ -9,11 +9,10 @@
 </snippet>
 <answers>
 	<rightans>"3"</rightans>
-	<ans>3</ans>
+	<ans>"3.0"</ans>
 	<ans>undefined</ans>
 	<ans>""</ans>
-	<ans>null</ans>
-	<ans>NaN</ans>
+	<ans>"NaN"</ans>
 	<ans>SyntaxError</ans>
 	<ans>ReferenceError</ans>
 </answers>
@@ -27,9 +26,7 @@ NaN == NaN
 <answers>
 	<rightans>false</rightans>
 	<ans>true</ans>
-	<ans>True</ans>
-	<ans>ture</ans>
-	<ans>"true"</ans>
+	<ans>undefined</ans>
 	<ans>0</ans>
 	<ans>SyntaxError</ans>
 	<ans>TypeError</ans>

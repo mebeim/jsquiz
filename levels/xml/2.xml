@@ -19,14 +19,13 @@ console.log(toString);
 
 <question>
 <snippet><![CDATA[
-2 + "px"
+2 + "px";
 ]]>
 </snippet>
 <answers>
 	<rightans>"2px"</rightans>
 	<ans>2px</ans>
-	<ans>"2em"</ans>
-	<ans>3</ans>
+	<ans>NaN</ans>
 	<ans>SyntaxError</ans>
 	<ans>TypeError</ans>
 	<com>Other</com>
@@ -41,11 +40,11 @@ typeof myVariable;
 <answers>
 	<rightans>"undefined"</rightans>
 	<ans>ReferenceError</ans>
-	<ans>number</ans>
-	<ans>"string"</ans>
-	<ans>"object"</ans>
+	<ans>"number"</ans>
+	<ans>undefined</ans>
+	<ans>null</ans>
+	<ans>"null"</ans>
 	<ans>SyntaxError</ans>
-	<com>Other</com>
 </answers>
 </question>
 
@@ -70,14 +69,13 @@ typeof myVariable;
 ]]>
 </snippet>
 <answers>
-	<rightans>Infinity</rightans>
+	<rightans>Infinity</rightans>	
 	<ans>NaN</ans>
-	<ans>SyntaxError</ans>
-	<ans>0</ans>
+	<ans>2e+64</ans>
 	<ans>1</ans>
 	<ans>undefined</ans>
-	<ans>null</ans>
-	<ans>false</ans>
+	<ans>SyntaxError</ans>
+	<ans>RangeError</ans>
 	<com>Other</com>
 </answers>
 </question>
@@ -92,13 +90,12 @@ console.log($çò);
 </snippet>
 <answers>
 	<rightans>2</rightans>
-	<ans>Number</ans>
+	<ans>1</ans>
+	<ans>NaN</ans>
+	<ans>$çò</ans>
 	<ans>undefined</ans>
 	<ans>ReferenceError</ans>
 	<ans>SyntaxError</ans>
-	<ans>"1"</ans>
-	<ans>$çò</ans>
-	<ans>1</ans>	
 	<com>Other</com>
 </answers>
 </question>
