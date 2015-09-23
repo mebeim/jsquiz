@@ -31,9 +31,6 @@
 			updateInfo();
 			loadQuestion(questions[0]);
 			$(gameStartOverlay).fadeOut();
-			$(selectorAnswers).each(function(i, el) {
-				el.onpress=checkAnswer;
-			});
 			animateIn();
 		});
 	}
@@ -66,6 +63,9 @@
 	gameStart.onpress=this.start;
 	gameRestart.onpress=this.restart;
 	gameQuit.onpress=this.quit;
+	$(selectorAnswers).each(function(i, el) {
+		el.onpress=checkAnswer;
+	});
 //TODO: remove jquery
 	$(gameAnswers).each(function(i, el) {
 		this.code = this.querySelector('code');
@@ -92,7 +92,6 @@
 			updateInfo();
 			updateProgressBar((currentQuestion-1) / questionsPerLevel * 100);
 			$(gameStartOverlay).fadeOut();
-			$(selectorAnswers).each(function(i, el) { el.onpress=checkAnswer; });
 			animateIn();
 			RESUME = undefined;
 		}
