@@ -204,6 +204,12 @@ a {
 	overflow: hidden;
 }
 
+.game-info .app-title-text {
+	display: none; /* will be shown only in small screens */
+	font-family: Montserrat;
+	line-height: 54px;
+}
+
 .game-current-level, .game-points {
 	width: 5rem;
 	font-size: 0.8rem;
@@ -407,6 +413,7 @@ a {
 
 /* MOBILE STYLES */
 
+/* iOS in standalone mode, make the bg for the status bar */
 .webapp.mobile body {
 	border-top: 20px solid #FCA22C;
 }
@@ -417,12 +424,13 @@ a {
 	}
 }
 
+
 .mobile {
 	user-select: none;
 }
 
 .mobile body {
-	max-height: 1024px;
+	max-height: 1024px; /* ipad height in portrait */
 }
 
 .mobile .app-button:hover {
@@ -457,13 +465,8 @@ a {
 	background-image: linear-gradient(rgba(255,255,255,0.33),rgba(255,255,255,0.33));
 }
 
-.game-info .app-title-text { /* TO MOVE */
-	display: none;
-	font-family: Montserrat;
-	line-height: 54px;
-}
 
-@media screen and (max-height:600px) {
+@media screen and (max-height:600px) { /* small vertical size, remove "What's the output?" */
 
 	.game-answers-title {
 		display: none;
@@ -474,25 +477,25 @@ a {
 
 }
 
-@media screen and (min-height:600px) {
+@media screen and (min-height:600px) { /* mobile big vertical size, make font better readable */
 	.mobile {
 		font-size: 150%;
 	}
 }
 
-@media screen and (max-height:600px) and (max-width:400px) {
+@media screen and (max-height:600px) and (max-width:400px) { /* ideal smartphone size, swap to compressed layout */
 
-	.webapp.mobile body {
+	.webapp body {
 		border-top-color: #00324A;
 	}
 
-	/*.app-title {
+	.app-title {
 		display: none;
-	}*/
+	}
 
-	.app-container {
-		/*height: 100%;*/
+	.app-container.app-container {
 		padding: 0.5rem;
+		height: 100%;
 	}
 
 	.game-info {
@@ -503,8 +506,12 @@ a {
 		left: -0.5rem;
 		top: -0.5rem;
 	}
+	
+	.game-info .app-title-text {
+		display: block;
+	}
 
-	.game-current-level, .mobile .game-points {
+	.game-current-level, .game-points {
 		margin-top: -32px;
 	}
 
@@ -513,9 +520,6 @@ a {
 		top: -4px;
 	}
 
-	.game-info .app-title-text {
-		display: block;
-	}
 
 	.game-over-overlay {
 		position: fixed;
@@ -524,6 +528,10 @@ a {
 
 	.game-level-up-overlay span {
 		top: 4.2rem;
+	}
+	
+	.app-footer {
+		display: none;
 	}
 
 }
