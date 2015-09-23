@@ -98,7 +98,7 @@
 		}
 		else {
 			updateProgressBar();
-			document.querySelector('.wrong').removeClass('wrong');
+			document.querySelector('.wrong') && document.querySelector('.wrong').removeClass('wrong');
 		}
 	}
 
