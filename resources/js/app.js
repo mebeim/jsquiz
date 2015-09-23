@@ -32,7 +32,7 @@
 			loadQuestion(questions[0]);
 			$(gameStartOverlay).fadeOut();
 			$(selectorAnswers).each(function(i, el) {
-				el.onpress(checkAnswer);
+				el.onpress=checkAnswer;
 			});
 			animateIn();
 		});
@@ -63,9 +63,9 @@
 	}
 
 	// Binding functions to elements
-	gameStart.onpress(this.start);
-	gameRestart.onpress(this.restart);
-	gameQuit.onpress(this.quit);
+	gameStart.onpress=this.start;
+	gameRestart.onpress=this.restart;
+	gameQuit.onpress=this.quit;
 //TODO: remove jquery
 	$(gameAnswers).each(function(i, el) {
 		this.code = this.querySelector('code');
@@ -92,7 +92,7 @@
 			updateInfo();
 			updateProgressBar((currentQuestion-1) / questionsPerLevel * 100);
 			$(gameStartOverlay).fadeOut();
-			$(selectorAnswers).each(function(i, el) { el.onpress(checkAnswer); });
+			$(selectorAnswers).each(function(i, el) { el.onpress=checkAnswer; });
 			animateIn();
 			RESUME = undefined;
 		}
@@ -361,18 +361,18 @@ function main() {
 
 //TODO: remove jquery
 
-	$('.app-footer')[0].onpress(function () {
+	$('.app-footer')[0].onpress = function () {
 		$('.app-credits').fadeIn();
-	});
-	$('.app-credits-icon')[0].onpress(function () {
+	};
+	$('.app-credits-icon')[0].onpress = function () {
 		$('.app-credits').fadeIn();
-	});
-	$('.game-info .app-title-text')[0].onpress(function () {
+	};
+	$('.game-info .app-title-text')[0].onpress = function () {
 		$('.app-credits').fadeIn();
-	});
-	$('.app-credits-close-button')[0].onpress(function () {
+	};
+	$('.app-credits-close-button')[0].onpress = function () {
 		$('.app-credits').fadeOut();
-	});
+	};
 
 	$('.scrollable').on("touchmove",function(e){
 		el = e.currentTarget;
