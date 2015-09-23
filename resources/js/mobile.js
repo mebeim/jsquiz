@@ -2,13 +2,13 @@
 
 Object.defineProperties(Element.prototype, {
 	"onpress" : {
-		value: function(handler, capt) {
+		set: function(handler) {
 			if (MOBILE) {
 				var tap;
-				this.addEventListener("touchstart", function(){ tap = true; }, capt);
-				this.addEventListener("touchmove", function(){ tap = false; }, capt);
-				this.addEventListener("touchend", function(e){ tap && handler.call(this, e); tap = false; }, capt);
-			} else this.addEventListener("click", handler, capt);
+				this.addEventListener("touchstart", function(){ tap = true; });
+				this.addEventListener("touchmove", function(){ tap = false; });
+				this.addEventListener("touchend", function(e){ tap && handler.call(this, e); tap = false; });
+			} else this.addEventListener("click", handler);
 		}
 	}
 });
