@@ -5,13 +5,13 @@
 	<title>JSQuiz</title>
 	<meta charset="utf-8"/>
 	<base target="_blank"/>
-	
+
 	<!-- MOBILE -->
 	<link rel="apple-touch-icon-precomposed" href="resources/images/logo.png"/>
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 	<meta name="viewport" content="user-scalable = no, width = device-width"/>
-	
+
 	<link href="reources/images/splash-ipad.png"
 			media="(device-width: 320px) and (device-height: 568px)
 					and (-webkit-device-pixel-ratio: 2)"
@@ -21,7 +21,7 @@
 					and (orientation: landscape)"
 			rel="apple-touch-startup-image"/>
 	<!-- /MOBILE -->
-	
+
 	<!-- EXTERNAL RESOURCES -->
 	<link rel="icon" type="image/png" href="resources/images/logo.png"/>
 	<link rel="stylesheet" href="resources/css/splash.css"/>
@@ -42,18 +42,19 @@
 		<h1 class="app-title-text">JSQuiz</h1>
 		<div class="app-credits-icon">i</div>
 	</header>
-	
+
 	<div class="app-container">
-	
+
 		<section class="app-overlay app-start">
 			<h2 class="app-welcome-title">Welcome to JSQuiz!</h2>
 			<div class="app-welcome-desc">JavaScript is the world's most misunderstood programming language. This quiz will test your JavaScript knowledge in depth. Click the start button to begin.</div>
 			<button class="app-button game-start-button">JSQuiz.start();</button>
+			<noscript>Important Note! This app requires JavaScript in order to work, but it seems like you disabled it or it's not supported by your browser. Please check your settings!</noscript>
 		</section>
 
 
 		<div class="game-board">
-			
+
 			<header class="game-info">
 				<h1 class="app-title-text">JSQuiz</h1>
 				<div class="game-current-level">
@@ -66,7 +67,7 @@
 					<div class="game-progress-bar"></div>
 				</div>
 			</header>
-			
+
 			<div class="game-snippet scrollable">
 				<div class="game-overlay game-level-up-overlay"> <span></span> </div>
 				<div class="game-overlay game-over-overlay"> 
@@ -79,7 +80,7 @@
 				</div>
 				<code></code>
 			</div>
-			
+
 			<section class="game-answers">
 				<h2 class="game-answers-title">What's the output?</h2>
 				<div class="game-answer" data-answer="0" data-label="a">
@@ -95,9 +96,9 @@
 					<code></code>
 				</div>
 			</section>
-			
+
 		</div><!-- #board -->
-		
+
 		<section class="app-overlay app-credits">
 			<h2 class="app-credits-title">Credits</h2>
 			<div class="app-credits-desc">
@@ -114,7 +115,7 @@
 		</section>
 
 	</div><!-- #container -->
-	
+
 	<footer class="app-footer">
 		<span class="app-footer-appname">JSQuiz alpha</span>
 		<span class="app-footer-authors">by Marco Bonelli &amp; Matteo Bernardini</span>
