@@ -402,7 +402,6 @@ Object.defineProperties(Element.prototype, {
 	// This stuff is hackerish, if classList is supported we use it, otherwise we fallback on manual
 	addClass: {
 		value: function(cl) {
-			cl = cl.toLowerCase();
 			this.classList ?
 			this.classList.add.apply(this.classList, cl.split(" ")) :
 			// prevent adding the className if it's already there
@@ -411,7 +410,6 @@ Object.defineProperties(Element.prototype, {
 	},
 	removeClass: {
 		value: function(rms) {
-			rms = rms.toLowerCase();
 			if (this.classList)
 				this.classList.remove.apply(this.classList, rms.split(" "));
 			else {
