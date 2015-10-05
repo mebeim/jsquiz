@@ -252,9 +252,11 @@
 	}
 
 	function proceed() {
-		function nextLevel() {
+	
+		currentPoints += pointsPerQuestion;
+	
+		if (isLastQuestion()) { // Next Level
 			currentLevel++;
-			currentPoints += pointsPerQuestion;
 			questionsPerLevel = questionsFunction(currentLevel);
 
 			loadLevel(currentLevel, questionsPerLevel, function() {
@@ -262,25 +264,16 @@
 				loadQuestion(questions[currentQuestion-1]);
 				pointsPerQuestion = pointsFunction(currentLevel);
 				animateLevelUp();
-				saveSession();
 			});
 		}
-
-		function nextQuestion() {
+		else { // Next Question
 			currentQuestion++;
-			currentPoints += pointsPerQuestion;
 
 			loadQuestion(questions[currentQuestion-1]);
 			animateIn();
-			saveSession();
 		}
 
-		if (isLastQuestion()) {
-			nextLevel();
-		} else {
-			nextQuestion();
-		}
-
+		saveSession();
 		updateInfo();
 	}
 
