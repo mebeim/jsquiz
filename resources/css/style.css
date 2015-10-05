@@ -1,8 +1,3 @@
-@import url(http://fonts.googleapis.com/css?family=Oxygen:400,700);
-@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
-@import url(http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700);
-
-
 /* STANDARD OVERRIDES */
 
 html {
@@ -67,7 +62,16 @@ a {
 	transition: opacity 0.2s ease;
 }
 
-
+.show {
+	z-index: auto;
+	opacity: 1;
+	transition: 500ms ease opacity;
+}
+.hide {
+	z-index: -1;
+	opacity: 0;
+	transition: 500ms ease opacity, 0ms linear z-index 500ms;
+}
 
 
 
@@ -118,20 +122,23 @@ a {
 	position: relative;
 }
 
+/* TODO: rewrite these two horrible rules */
 .app-overlay, .game-overlay  {
-	display: none;
 	position: absolute;
 	top: 0; right: 0; bottom: 0; left: 0;
 	background: #00ADFF;
-	z-index: 1;
+	opacity: 0;
+	z-index: -1;
 	text-align: center;
 	color: #FFF;
 	padding: 1rem;
 }
 
-.app-start {
-	display: block;
+.app-start:not(.hide), .app-overlay.show, .game-overlay.show {
+	z-index: 1;
+	opacity: 1;
 }
+/* --- */
 
 .app-credits-list {
 	list-style: none;
@@ -286,6 +293,10 @@ a {
 	text-align: left;
 }
 
+.next-question .game-snippet code {
+	opacity: 0;
+}
+
 .fixed-code {
 	position: absolute;
 	top: 0; right: 0; bottom: 0; left: 0;
@@ -385,11 +396,12 @@ a {
 	animation: lilshake 500ms;
 }
 
-.game-answer.right {
+.game-answers .game-answer.right {
 	background-color: #00BE2E;
+	color: #FFF;
 }
 
-.game-answer.hide {
+.next-question .game-answer {
 	color: transparent;
 }
 
