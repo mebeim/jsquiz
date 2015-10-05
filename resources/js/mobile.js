@@ -19,7 +19,7 @@ Object.defineProperties(Element.prototype, {
 var MOBILE 		= 'ontouchstart' in window,
 	STANDALONE	= navigator.standalone;
 
-document.documentElement.className += " " + (MOBILE ? (STANDALONE ? 'mobile webapp splash loading' : 'mobile') : 'desktop');
+document.documentElement.className += 'loading ' + (MOBILE ? 'mobile ' + (STANDALONE ? 'webapp splash' : '') : 'desktop');
 
 if (MOBILE) {
 
@@ -27,7 +27,7 @@ if (MOBILE) {
 		if (STANDALONE) {
 			var root = document.documentElement;
 			if (RESUMED)
-				setTimeout(function(){ root.removeClass("splash loading"); }, 500);
+				setTimeout(function(){ root.removeClass("splash"); }, 500);
 			else {
 				root.addClass("load");
 				root.removeClass("loading");
@@ -40,3 +40,7 @@ if (MOBILE) {
 	document.addEventListener("touchmove", function(e){e.preventDefault();});
 
 }
+
+addEventListener("load", function() {
+	document.documentElement.removeClass("loading");
+});
