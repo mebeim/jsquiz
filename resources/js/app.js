@@ -49,7 +49,7 @@
 		$(gameStartOverlay).fadeIn();
 	}
 
-	// Will retrieve info about the current level
+	// Will retrieve info about a range of levels
 	this.levelInfo = function(a, b) {
 		a == a || 1;
 		a = a > MAX_LEVEL ? MAX_LEVEL : a <= 0 ? 1 : a;
