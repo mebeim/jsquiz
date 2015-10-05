@@ -63,13 +63,12 @@
 	gameStart.onpress=this.start;
 	gameRestart.onpress=this.restart;
 	gameQuit.onpress=this.quit;
-	$(selectorAnswers).each(function(i, el) {
-		el.onpress=checkAnswer;
-	});
-//TODO: remove jquery
-	$(gameAnswers).each(function(i, el) {
-		this.code = this.querySelector('code');
-	});
+
+	for (var i = 0, el; el = gameAnswers[i]; i++) {
+		el.onpress = checkAnswer;
+		// make a reference for the <code> element inside answers
+		el.code = el.children[0];
+	}
 
 	init();
 
