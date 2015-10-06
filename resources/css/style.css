@@ -391,18 +391,18 @@ a {
 	color: #FFE986;
 }
 
+.next-question .game-answer {
+	color: transparent;
+}
+
 .game-answer.wrong {
 	background-color: #DD0000;
 	animation: lilshake 500ms;
 }
 
-.game-answers .game-answer.right {
+.game-answer.right {
 	background-color: #00BE2E;
 	color: #FFF;
-}
-
-.next-question .game-answer {
-	color: transparent;
 }
 
 .game-answer:hover {
