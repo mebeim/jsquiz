@@ -4,21 +4,6 @@
 
 <question>
 <snippet><![CDATA[
-console.log(toString);
-]]>
-</snippet>
-<answers>
-	<rightans>function () { [native code] }</rightans>
-	<ans>toString</ans>
-	<ans>"toString"</ans>
-	<ans>"console.log"</ans>
-	<ans>ReferenceError</ans>
-	<ans>SyntaxError</ans>
-</answers>
-</question>
-
-<question>
-<snippet><![CDATA[
 2 + "px";
 ]]>
 </snippet>
@@ -90,28 +75,14 @@ console.log($çò);
 </snippet>
 <answers>
 	<rightans>2</rightans>
+	<ans>0</ans>
+	<ans>0.6931471805599453</ans>
 	<ans>1</ans>
 	<ans>NaN</ans>
 	<ans>$çò</ans>
 	<ans>undefined</ans>
 	<ans>ReferenceError</ans>
 	<ans>SyntaxError</ans>
-	<com>Other</com>
-</answers>
-</question>
-
-﻿<question>
-<snippet><![CDATA[
-location == self.location;
-]]>
-</snippet>
-<answers>
-	<rightans>true</rightans>
-	<com>Depends on the frame</com>
-	<ans>false</ans>
-	<ans>SyntaxError</ans>
-	<ans>ReferenceError</ans>	
-	<com>Other</com>
 </answers>
 </question>
 

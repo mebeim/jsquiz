@@ -10,11 +10,27 @@ log("Hello!");
 </snippet>
 <answers>
 	<rightans>ReferenceError</rightans>
+	<ans>NaN</ans>
 	<ans>"Hello!"</ans>
 	<ans>Hello!</ans>
 	<ans>undefined</ans>
 	<ans>SyntaxError</ans>
 	<com>Other</com>
+</answers>
+</question>
+
+<question>
+<snippet><![CDATA[
+console.log(toString);
+]]>
+</snippet>
+<answers>
+	<rightans>function () { [native code] }</rightans>
+	<ans>toString</ans>
+	<ans>"toString"</ans>
+	<ans>"console.log"</ans>
+	<ans>ReferenceError</ans>
+	<ans>SyntaxError</ans>
 </answers>
 </question>
 
@@ -65,6 +81,21 @@ typeof(jQuery);
 	<ans>"jquery"</ans>
 	<ans>"number"</ans>
 	<ans>"string"</ans>
+	<com>Other</com>
+</answers>
+</question>
+
+﻿<question>
+<snippet><![CDATA[
+location == self.location;
+]]>
+</snippet>
+<answers>
+	<rightans>true</rightans>
+	<com>Depends on the frame</com>
+	<ans>false</ans>
+	<ans>SyntaxError</ans>
+	<ans>ReferenceError</ans>	
 	<com>Other</com>
 </answers>
 </question>
