@@ -41,5 +41,32 @@ typeof ([{ }])
 </answers>
 </question>
 
+<question>
+<snippet><![CDATA[
+text = 'x';
+f = function() {
+	text += 'x';
+	return 3;
+}
+
+switch (f()) {
+	case 1: break;
+	case 2: break;
+	case 3: break;
+}
+
+console.log(text);
+]]>
+</snippet>
+<answers>
+	<rightans>x</rightans>
+	<ans>"x"</ans>
+	<ans>"xxxx"</ans>
+	<ans>xxxx</ans>
+	<ans>xxx</ans>
+	<ans>ReferenceError</ans>
+	<ans>SyntaxError</ans>
+</answers>
+</question>
 
 </level>
