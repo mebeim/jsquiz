@@ -1,4 +1,4 @@
-﻿function JSQuiz(RESUME) {
+function JSQuiz(RESUME) {
 	var OBJ 				= this,
 		MAX_LEVEL			= 30,
 		MAX_PAUSE_TIME		= 3600000, // 1 hour
@@ -60,12 +60,12 @@
 	}
 
 	// Binding functions to elements
-	gameStart.onpress=this.start;
-	gameRestart.onpress=this.restart;
-	gameQuit.onpress=this.quit;
+	gameStart.addEventListener("press", this.start);
+	gameRestart.addEventListener("press", this.restart);
+	gameQuit.addEventListener("press", this.quit);
 
 	for (var i = 0, el; el = gameAnswers[i]; i++) {
-		el.onpress = checkAnswer;
+		el.addEventListener("press", checkAnswer);
 		// make a reference for the <code> element inside answers
 		el.code = el.children[0];
 	}
@@ -342,18 +342,18 @@ function main() {
 
 //TODO: remove jquery
 
-	q('.app-footer').onpress = function () {
+	q('.app-footer').addEventListener("press", function () {
 		q('.app-credits').fadeIn();
-	};
-	q('.app-credits-icon').onpress = function () {
+	});
+	q('.app-credits-icon').addEventListener("press", function () {
 		q('.app-credits').fadeIn();
-	};
-	q('.game-info .app-title-text').onpress = function () {
+	});
+	q('.game-info .app-title-text').addEventListener("press", function () {
 		q('.app-credits').fadeIn();
-	};
-	q('.app-credits-close-button').onpress = function () {
+	});
+	q('.app-credits-close-button').addEventListener("press", function () {
 		q('.app-credits').fadeOut();
-	};
+	});
 
 	q('.scrollable').addEventListener("touchmove", function(e) {
 		el = e.currentTarget;
