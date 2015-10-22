@@ -49,7 +49,7 @@
 		$(gameStartOverlay).fadeIn();
 	}
 
-	// Will retrieve info about the current level
+	// Will retrieve info about a range of levels
 	this.levelInfo = function(a, b) {
 		a == a || 1;
 		a = a > MAX_LEVEL ? MAX_LEVEL : a <= 0 ? 1 : a;
@@ -63,13 +63,12 @@
 	gameStart.addEventListener("press", this.start);
 	gameRestart.addEventListener("press", this.restart);
 	gameQuit.addEventListener("press", this.quit);
-	$(selectorAnswers).each(function(i, el) {
+
+	for (var i = 0, el; el = gameAnswers[i]; i++) {
 		el.addEventListener("press", checkAnswer);
-	});
-//TODO: remove jquery
-	$(gameAnswers).each(function(i, el) {
-		this.code = this.querySelector('code');
-	});
+		// make a reference for the <code> element inside answers
+		el.code = el.children[0];
+	}
 
 	init();
 
@@ -253,9 +252,11 @@
 	}
 
 	function proceed() {
-		function nextLevel() {
+	
+		currentPoints += pointsPerQuestion;
+	
+		if (isLastQuestion()) { // Next Level
 			currentLevel++;
-			currentPoints += pointsPerQuestion;
 			questionsPerLevel = questionsFunction(currentLevel);
 
 			loadLevel(currentLevel, questionsPerLevel, function() {
@@ -263,25 +264,16 @@
 				loadQuestion(questions[currentQuestion-1]);
 				pointsPerQuestion = pointsFunction(currentLevel);
 				animateLevelUp();
-				saveSession();
 			});
 		}
-
-		function nextQuestion() {
+		else { // Next Question
 			currentQuestion++;
-			currentPoints += pointsPerQuestion;
 
 			loadQuestion(questions[currentQuestion-1]);
 			animateIn();
-			saveSession();
 		}
 
-		if (isLastQuestion()) {
-			nextLevel();
-		} else {
-			nextQuestion();
-		}
-
+		saveSession();
 		updateInfo();
 	}
 
