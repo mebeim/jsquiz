@@ -15,7 +15,7 @@
   window.CustomEvent = CustomEvent;
 })();
 
-var pressEvent = new CustomEvent("press");
+var pressEvent = new CustomEvent("press", {"bubbles": true});
 
 
 // MAIN
