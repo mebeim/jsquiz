@@ -62,12 +62,11 @@ a {
 	transition: opacity 0.2s ease;
 }
 
-.show {
-	z-index: auto;
+.show.show {
 	opacity: 1;
 	transition: 500ms ease opacity;
 }
-.hide {
+.hide.hide {
 	z-index: -1;
 	opacity: 0;
 	transition: 500ms ease opacity, 0ms linear z-index 500ms;
@@ -122,23 +121,15 @@ a {
 	position: relative;
 }
 
-/* TODO: rewrite these two horrible rules */
 .app-overlay, .game-overlay  {
 	position: absolute;
 	top: 0; right: 0; bottom: 0; left: 0;
 	background: #00ADFF;
-	opacity: 0;
-	z-index: -1;
+	z-index: 2;
 	text-align: center;
 	color: #FFF;
 	padding: 1rem;
 }
-
-.app-start:not(.hide), .app-overlay.show, .game-overlay.show {
-	z-index: 1;
-	opacity: 1;
-}
-/* --- */
 
 .app-credits-list {
 	list-style: none;
