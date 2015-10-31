@@ -27,6 +27,9 @@
 	<link rel="stylesheet" href="resources/css/splash.css"/>
 	<link rel="stylesheet" href="resources/css/style.css"/>
 	<link rel="stylesheet" href="resources/css/code-highlight.css"/>
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oxygen:400,700"/>
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Montserrat:400,700"/>
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700"/>
 	<script src="resources/js/jquery.min.js"></script>
 	<script src="resources/js/parse_xml.js"></script>
 	<script src="resources/js/mobile.js"></script>
@@ -69,8 +72,8 @@
 			</header>
 
 			<div class="game-snippet scrollable">
-				<div class="game-overlay game-level-up-overlay"> <span></span> </div>
-				<div class="game-overlay game-over-overlay"> 
+				<div class="game-overlay game-level-up-overlay hide"> <span></span> </div>
+				<div class="game-overlay game-over-overlay hide"> 
 					<h2>GAME OVER!</h2>
 					<p>YOU SCORED <span class="game-final-score"></span> POINTS,</p>
 					<p>REACHED LEVEL <span class="game-final-level"></span></p>
@@ -99,7 +102,7 @@
 
 		</div><!-- .game-board -->
 
-		<section class="app-overlay app-credits">
+		<section class="app-overlay app-credits hide">
 			<h2 class="app-credits-title">Credits</h2>
 			<div class="app-credits-desc">
 				<p>This game has been made possible by the work of <a href="">Marco Bonelli</a> and <a href="http://twitter.com/mttbernardini">Matteo Bernardini</a>.</p>
