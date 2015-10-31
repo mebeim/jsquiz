@@ -30,7 +30,7 @@
 		loadLevel(1, 3, function() {
 			updateInfo();
 			loadQuestion(questions[0]);
-			$(gameStartOverlay).fadeOut();
+			gameStartOverlay.fadeOut();
 			animateIn();
 		});
 	}
@@ -38,15 +38,15 @@
 	// Will restart the game
 	this.restart = function() {
 		init();
-		$(gameOverOverlay).fadeOut();
+		gameOverOverlay.fadeOut();
 		OBJ.start();
 	}
 
 	// Will quit the game
 	this.quit = function() {
 		init();
-		$(gameOverOverlay).fadeOut();
-		$(gameStartOverlay).fadeIn();
+		gameOverOverlay.fadeOut();
+		gameStartOverlay.fadeIn();
 	}
 
 	// Will retrieve info about a range of levels
@@ -90,7 +90,7 @@
 			loadQuestion(questions[currentQuestion-1]);
 			updateInfo();
 			updateProgressBar((currentQuestion-1) / questionsPerLevel * 100);
-			$(gameStartOverlay).fadeOut();
+			gameStartOverlay.fadeOut();
 			animateIn();
 			RESUME = undefined;
 		}
@@ -216,38 +216,28 @@
 	}
 
 	function animateIn() {
-		gameCode.style.opacity = '1';
-
-		var els = document.querySelectorAll('.game-answer');
-		for (var i=0; i < els.length; i++) {
-			els[i].removeClass("right hide");
-		}
+		document.querySelector('.game-board').removeClass("next-question level-up");
+		document.querySelector('.right') && document.querySelector('.right').removeClass("right");
 	}
 
 	function animateOut(newLevel) {
-		gameCode.style.opacity = '0';
+		document.querySelector('.game-board').addClass("next-question");
 
-		var els = document.querySelectorAll('.game-answer');
 		this.addClass("right");
 
 		if (isLastQuestion()) {
 			(function(el) {
 				setTimeout(function() { 
 					el.removeClass("right");
-					el.addClass("hide");
 				}, 300);
 			})(this);
-		}
-
-		for (var i=0; i < els.length; i++) {
-			if (els[i] != this) els[i].addClass("hide");
 		}
 	}
 
 	function animateLevelUp() {
 		gameLevelUp.querySelector('span').textContent = 'LEVEL ' + currentLevel;
-		$(gameLevelUp).fadeIn();
-		setTimeout(function() { $(gameLevelUp).fadeOut(); animateIn(); }, 1500);
+		gameLevelUp.fadeIn();
+		setTimeout(function() { gameLevelUp.fadeOut(); animateIn(); }, 1500);
 		updateProgressBar();
 	}
 
@@ -283,7 +273,7 @@
 		gameFinalLevel.textContent = currentLevel;
 		gameFinalAnswered.textContent = questionsAnswered;
 
-		$(gameOverOverlay).fadeIn();
+		gameOverOverlay.fadeIn();
 		delete localStorage.jsq_session;
 	}
 
@@ -352,27 +342,27 @@ function main() {
 
 //TODO: remove jquery
 
-	$('.app-footer')[0].onpress = function () {
-		$('.app-credits').fadeIn();
+	q('.app-footer').onpress = function () {
+		q('.app-credits').fadeIn();
 	};
-	$('.app-credits-icon')[0].onpress = function () {
-		$('.app-credits').fadeIn();
+	q('.app-credits-icon').onpress = function () {
+		q('.app-credits').fadeIn();
 	};
-	$('.game-info .app-title-text')[0].onpress = function () {
-		$('.app-credits').fadeIn();
+	q('.game-info .app-title-text').onpress = function () {
+		q('.app-credits').fadeIn();
 	};
-	$('.app-credits-close-button')[0].onpress = function () {
-		$('.app-credits').fadeOut();
+	q('.app-credits-close-button').onpress = function () {
+		q('.app-credits').fadeOut();
 	};
 
-	$('.scrollable').on("touchmove",function(e){
+	q('.scrollable').addEventListener("touchmove", function(e) {
 		el = e.currentTarget;
 		if (el.offsetHeight < el.scrollHeight || el.offsetWidth < el.scrollWidth)
 			e.stopPropagation();
 	});
 }
 
-$(document).ready(main);
+document.addEventListener("DOMContentLoaded", main);
 
 
 // Some workarounds for unsupported methods
@@ -389,6 +379,10 @@ Object.getOwnPropertyDescriptor(Node.prototype, "children") || Object.defineProp
 );
 
 // Other useful stuff replacing jq
+
+function q(sel) { //tmp name
+	return document.querySelector(sel);
+}
 
 Object.defineProperties(Element.prototype, {
 	// This stuff is hackerish, if classList is supported we use it, otherwise we fallback on manual
@@ -412,6 +406,18 @@ Object.defineProperties(Element.prototype, {
 					while (~(j = cls.indexOf(rm))) cls.splice(j,1);
 				this.className = cls.join(" ").trim();
 			}
+		}
+	},
+	fadeIn: {
+		value: function() {
+			this.addClass("show");
+			this.removeClass("hide");
+		}
+	},
+	fadeOut: {
+		value: function() {
+			this.addClass("hide");
+			this.removeClass("show");
 		}
 	}
 });
