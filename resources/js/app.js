@@ -6,21 +6,20 @@
 		lostGame, currentLevel, currentQuestion, currentAnswer, currentPoints, pointsPerQuestion, questionsPerLevel, questionsAnswered, questions,
 		XMLp				= new XMLParser(),
 		selectorAnswers		= '.game-answer',
-// TODO: make a custom selector func (replacing jq)
-		gameStartOverlay	= document.querySelector('.app-start'),
-		gameOverOverlay		= document.querySelector('.game-over-overlay'),
-		gameStart			= document.querySelector('.game-start-button'),
-		gameRestart			= document.querySelector('.game-restart-button'),
-		gameQuit			= document.querySelector('.game-quit-button'),
-		gameCode			= document.querySelector('.game-snippet code'),
-		gameLevel			= document.querySelector('.game-current-level span'),
-		gamePoints			= document.querySelector('.game-points span'),
-		gameProgress		= document.querySelector('.game-progress-bar'),
-		gameLevelUp			= document.querySelector('.game-level-up-overlay'),
-		gameFinalScore		= document.querySelector('.game-final-score'),
-		gameFinalLevel		= document.querySelector('.game-final-level'),
-		gameFinalAnswered	= document.querySelector('.game-final-answered'),
-		gameAnswers			= document.querySelectorAll(selectorAnswers);
+		gameStartOverlay	= _('.app-start'),
+		gameOverOverlay		= _('.game-over-overlay'),
+		gameStart			= _('.game-start-button'),
+		gameRestart			= _('.game-restart-button'),
+		gameQuit			= _('.game-quit-button'),
+		gameCode			= _('.game-snippet code'),
+		gameLevel			= _('.game-current-level span'),
+		gamePoints			= _('.game-points span'),
+		gameProgress		= _('.game-progress-bar'),
+		gameLevelUp			= _('.game-level-up-overlay'),
+		gameFinalScore		= _('.game-final-score'),
+		gameFinalLevel		= _('.game-final-level'),
+		gameFinalAnswered	= _('.game-final-answered'),
+		gameAnswers			= _(selectorAnswers, "ALL");
 
 
 	// == PUBLIC == //
@@ -96,7 +95,7 @@
 		}
 		else {
 			updateProgressBar();
-			document.querySelector('.wrong') && document.querySelector('.wrong').removeClass('wrong');
+			_('.wrong').removeClass('wrong');
 		}
 	}
 
@@ -216,12 +215,12 @@
 	}
 
 	function animateIn() {
-		document.querySelector('.game-board').removeClass("next-question level-up");
-		document.querySelector('.right') && document.querySelector('.right').removeClass("right");
+		_('.game-board').removeClass("next-question level-up");
+		_('.right').removeClass("right");
 	}
 
 	function animateOut(newLevel) {
-		document.querySelector('.game-board').addClass("next-question");
+		_('.game-board').addClass("next-question");
 
 		this.addClass("right");
 
@@ -299,7 +298,7 @@
 	}
 }
 
-// ##### END OBJECT DEFINITION #### //
+// ##### END OBJECT DEFINITION ##### //
 
 
 function main() {
@@ -342,20 +341,20 @@ function main() {
 
 //TODO: remove jquery
 
-	q('.app-footer').onpress = function () {
-		q('.app-credits').fadeIn();
+	_('.app-footer').onpress = function () {
+		_('.app-credits').fadeIn();
 	};
-	q('.app-credits-icon').onpress = function () {
-		q('.app-credits').fadeIn();
+	_('.app-credits-icon').onpress = function () {
+		_('.app-credits').fadeIn();
 	};
-	q('.game-info .app-title-text').onpress = function () {
-		q('.app-credits').fadeIn();
+	_('.game-info .app-title-text').onpress = function () {
+		_('.app-credits').fadeIn();
 	};
-	q('.app-credits-close-button').onpress = function () {
-		q('.app-credits').fadeOut();
+	_('.app-credits-close-button').onpress = function () {
+		_('.app-credits').fadeOut();
 	};
 
-	q('.scrollable').addEventListener("touchmove", function(e) {
+	_('.scrollable').addEventListener("touchmove", function(e) {
 		el = e.currentTarget;
 		if (el.offsetHeight < el.scrollHeight || el.offsetWidth < el.scrollWidth)
 			e.stopPropagation();
@@ -363,6 +362,11 @@ function main() {
 }
 
 document.addEventListener("DOMContentLoaded", main);
+
+
+
+
+// #####    PROTOTYPING    ##### //
 
 
 // Some workarounds for unsupported methods
@@ -380,8 +384,10 @@ Object.getOwnPropertyDescriptor(Node.prototype, "children") || Object.defineProp
 
 // Other useful stuff replacing jq
 
-function q(sel) { //tmp name
-	return document.querySelector(sel);
+function _(sel, all) {
+	var q = all ? document.querySelectorAll(sel) : document.querySelector(sel);
+	var n = document.createElement("null");
+	return q ? q : (all ? [n] : n);
 }
 
 Object.defineProperties(Element.prototype, {
