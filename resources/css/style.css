@@ -265,7 +265,7 @@ a {
 	/* GAME SNIPPET AREA */
 
 .game-snippet {
-	display: block;
+	display: flex;
 	overflow-y: auto;
 	position: relative;
 	background-color: #F5F5F5;
@@ -277,8 +277,7 @@ a {
 	cursor: default;
 }
 
-.game-snippet code {	
-	display: inline-block;
+.game-snippet code {
 	opacity: 1;
 	margin: auto;
 	text-align: left;
@@ -286,11 +285,6 @@ a {
 
 .next-question .game-snippet code {
 	opacity: 0;
-}
-
-.fixed-code {
-	position: absolute;
-	top: 0; right: 0; bottom: 0; left: 0;
 }
 
 .game-level-up-overlay {

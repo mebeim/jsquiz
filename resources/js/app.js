@@ -138,7 +138,6 @@
 
 		gameCode.className = '';
 		gameCode.textContent = q.snippet;
-		fixCodePosition();
 		hljs.highlightBlock(gameCode);
 		currentAnswer = q.right_answer;
 
@@ -178,18 +177,6 @@
 //TODO: declare functions in a more coherent order (e.g. core, private, public)
 	function isLastQuestion() {
 		return (currentQuestion == questionsPerLevel);
-	}
-
-	// Will position the code to the center
-//TODO: maybe we should consider using flex when possible
-	function fixCodePosition() {
-		gameCode.removeClass('fixed-code');
-		$(gameCode).width('auto');
-		$(gameCode).height('auto');
-		$(gameCode).css('max-width', 'none');
-		$(gameCode).css('max-width', $(gameCode).width() + 2 + 'px');
-		$(gameCode).height($(gameCode).height());
-		gameCode.addClass('fixed-code');
 	}
 
 	// Will update GUI status info
