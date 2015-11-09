@@ -6,21 +6,20 @@ function JSQuiz(RESUME) {
 		lostGame, currentLevel, currentQuestion, currentAnswer, currentPoints, pointsPerQuestion, questionsPerLevel, questionsAnswered, questions,
 		XMLp				= new XMLParser(),
 		selectorAnswers		= '.game-answer',
-// TODO: make a custom selector func (replacing jq)
-		gameStartOverlay	= document.querySelector('.app-start'),
-		gameOverOverlay		= document.querySelector('.game-over-overlay'),
-		gameStart			= document.querySelector('.game-start-button'),
-		gameRestart			= document.querySelector('.game-restart-button'),
-		gameQuit			= document.querySelector('.game-quit-button'),
-		gameCode			= document.querySelector('.game-snippet code'),
-		gameLevel			= document.querySelector('.game-current-level span'),
-		gamePoints			= document.querySelector('.game-points span'),
-		gameProgress		= document.querySelector('.game-progress-bar'),
-		gameLevelUp			= document.querySelector('.game-level-up-overlay'),
-		gameFinalScore		= document.querySelector('.game-final-score'),
-		gameFinalLevel		= document.querySelector('.game-final-level'),
-		gameFinalAnswered	= document.querySelector('.game-final-answered'),
-		gameAnswers			= document.querySelectorAll(selectorAnswers);
+		gameStartOverlay	= _('.app-start'),
+		gameOverOverlay		= _('.game-over-overlay'),
+		gameStart			= _('.game-start-button'),
+		gameRestart			= _('.game-restart-button'),
+		gameQuit			= _('.game-quit-button'),
+		gameCode			= _('.game-snippet code'),
+		gameLevel			= _('.game-current-level span'),
+		gamePoints			= _('.game-points span'),
+		gameProgress		= _('.game-progress-bar'),
+		gameLevelUp			= _('.game-level-up-overlay'),
+		gameFinalScore		= _('.game-final-score'),
+		gameFinalLevel		= _('.game-final-level'),
+		gameFinalAnswered	= _('.game-final-answered'),
+		gameAnswers			= _(selectorAnswers, "ALL");
 
 
 	// == PUBLIC == //
@@ -96,7 +95,7 @@ function JSQuiz(RESUME) {
 		}
 		else {
 			updateProgressBar();
-			document.querySelector('.wrong') && document.querySelector('.wrong').removeClass('wrong');
+			_('.wrong').removeClass('wrong');
 		}
 	}
 
@@ -216,12 +215,12 @@ function JSQuiz(RESUME) {
 	}
 
 	function animateIn() {
-		document.querySelector('.game-board').removeClass("next-question level-up");
-		document.querySelector('.right') && document.querySelector('.right').removeClass("right");
+		_('.game-board').removeClass("next-question level-up");
+		_('.right').removeClass("right");
 	}
 
 	function animateOut(newLevel) {
-		document.querySelector('.game-board').addClass("next-question");
+		_('.game-board').addClass("next-question");
 
 		this.addClass("right");
 
@@ -298,126 +297,3 @@ function JSQuiz(RESUME) {
 		localStorage.jsq_session = JSON.stringify(session);
 	}
 }
-
-// ##### END OBJECT DEFINITION #### //
-
-
-function main() {
-
-	// Will check if Storage API is usable
-//TODO: define this somewhere else
-	function storageON() {
-		try {
-			localStorage.setItem("__test", "data");
-		} catch (e) {
-			if (/(QUOTA_?EXCEEDED|SecurityError|ReferenceError)/i.test(e.name))
-				return false;
-		} 
-		return true;
-	}
-
-	// Try to resume the game
-
-	RESUMED = false;
-
-	if (storageON()) {
-
-		var lastSession = localStorage.jsq_session;
-
-		if (lastSession) {
-
-			lastSession = JSON.parse(lastSession);
-
-			if (new Date() - lastSession.saveDate < 3600000) {
-
-				JSQ = new JSQuiz(lastSession.data);
-
-				RESUMED = true;
-			}
-		}
-	}
-
-	if (!RESUMED) JSQ = new JSQuiz();
-
-
-//TODO: remove jquery
-
-	q('.app-footer').addEventListener("press", function () {
-		q('.app-credits').fadeIn();
-	});
-	q('.app-credits-icon').addEventListener("press", function () {
-		q('.app-credits').fadeIn();
-	});
-	q('.game-info .app-title-text').addEventListener("press", function () {
-		q('.app-credits').fadeIn();
-	});
-	q('.app-credits-close-button').addEventListener("press", function () {
-		q('.app-credits').fadeOut();
-	});
-
-	q('.scrollable').addEventListener("touchmove", function(e) {
-		el = e.currentTarget;
-		if (el.offsetHeight < el.scrollHeight || el.offsetWidth < el.scrollWidth)
-			e.stopPropagation();
-	});
-}
-
-document.addEventListener("DOMContentLoaded", main);
-
-
-// Some workarounds for unsupported methods
-
-Object.getOwnPropertyDescriptor(Node.prototype, "children") || Object.defineProperty(
-	Node.prototype,
-	"children",
-	{
-		get: function() {
-//TODO: return an instance of HTMLCollection
-			return Array.prototype.filter.call(this.childNodes, function(el){return el.nodeType==1;});
-		}
-	}
-);
-
-// Other useful stuff replacing jq
-
-function q(sel) { //tmp name
-	return document.querySelector(sel);
-}
-
-Object.defineProperties(Element.prototype, {
-	// This stuff is hackerish, if classList is supported we use it, otherwise we fallback on manual
-	addClass: {
-		value: function(cl) {
-			this.classList ?
-			this.classList.add.apply(this.classList, cl.split(" ")) :
-			// prevent adding the className if it's already there
-			~this.className.split(" ").indexOf(cl) || (this.className = (this.className+" "+cl).trim());
-		}
-	},
-	removeClass: {
-		value: function(rms) {
-			if (this.classList)
-				this.classList.remove.apply(this.classList, rms.split(" "));
-			else {
-				rms = rms.split(" ");
-				cls = this.className.split(" ");
-				for (var i=0, j; rm = rms[i]; i++)
-					// Remove all occurences of the same className
-					while (~(j = cls.indexOf(rm))) cls.splice(j,1);
-				this.className = cls.join(" ").trim();
-			}
-		}
-	},
-	fadeIn: {
-		value: function() {
-			this.addClass("show");
-			this.removeClass("hide");
-		}
-	},
-	fadeOut: {
-		value: function() {
-			this.addClass("hide");
-			this.removeClass("show");
-		}
-	}
-});
