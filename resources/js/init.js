@@ -46,7 +46,11 @@ function main() {
 
 
 var MOBILE 		= 'ontouchstart' in window,
-	STANDALONE	= navigator.standalone;
+	STANDALONE	= navigator.standalone,
+
+	// Press CustomEvent (handles TouchEvent on mobile and ClickEvent on desktop)
+	PressEvent = new CustomEvent("press", {"bubbles": true});
+
 
 document.documentElement.className += 'loading ' + (MOBILE ? 'mobile ' + (STANDALONE ? 'webapp splash' : '') : 'desktop');
 
