@@ -417,18 +417,6 @@ a {
 
 /* MOBILE STYLES */
 
-/* iOS in standalone mode, make the bg for the status bar */
-.webapp.mobile body {
-	border-top: 20px solid #FCA22C;
-}
-
-@media screen and (orientation:landscape) {
-	.webapp.mobile body {
-		border-top-width: 15px;
-	}
-}
-
-
 .mobile {
 	user-select: none;
 }
