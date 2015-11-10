@@ -59,17 +59,6 @@ Object.defineProperties(Element.prototype, {
 			this.addClass("hide");
 			this.removeClass("show");
 		}
-	},
-	// This setter handles ClickEvent on desktop vs TouchEvent on mobile
-	onpress : {
-		set: function(handler) {
-			if (MOBILE) {
-				var tap;
-				this.addEventListener("touchstart", function(){ tap = true; });
-				this.addEventListener("touchmove", function(){ tap = false; });
-				this.addEventListener("touchend", function(e){ tap && handler.call(this, e); tap = false; });
-			} else this.addEventListener("click", handler);
-		}
 	}
 });
 
@@ -86,3 +75,17 @@ function storageON() {
 	} 
 	return true;
 }
+
+// CustomEvent Polyfill for IE ≥ 9
+(function () {
+  function CustomEvent ( event, params ) {
+    params = params || { bubbles: false, cancelable: false, detail: undefined };
+    var evt = document.createEvent( 'CustomEvent' );
+    evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
+    return evt;
+   }
+
+  CustomEvent.prototype = window.Event.prototype;
+
+  window.CustomEvent = CustomEvent;
+})();

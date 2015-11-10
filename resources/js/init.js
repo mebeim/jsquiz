@@ -24,18 +24,18 @@ function main() {
 	if (!RESUMED) JSQ = new JSQuiz();
 
 
-	_('.app-footer').onpress = function () {
+	_('.app-footer').addEventListener("press", function () {
 		_('.app-credits').fadeIn();
-	};
-	_('.app-credits-icon').onpress = function () {
+	});
+	_('.app-credits-icon').addEventListener("press", function () {
 		_('.app-credits').fadeIn();
-	};
-	_('.game-info .app-title-text').onpress = function () {
+	});
+	_('.game-info .app-title-text').addEventListener("press", function () {
 		_('.app-credits').fadeIn();
-	};
-	_('.app-credits-close-button').onpress = function () {
+	});
+	_('.app-credits-close-button').addEventListener("press", function () {
 		_('.app-credits').fadeOut();
-	};
+	});
 
 	_('.scrollable').addEventListener("touchmove", function(e) {
 		el = e.currentTarget;
@@ -46,7 +46,11 @@ function main() {
 
 
 var MOBILE 		= 'ontouchstart' in window,
-	STANDALONE	= navigator.standalone;
+	STANDALONE	= navigator.standalone,
+
+	// Press CustomEvent (handles TouchEvent on mobile and ClickEvent on desktop)
+	PressEvent = new CustomEvent("press", {"bubbles": true});
+
 
 document.documentElement.className += 'loading ' + (MOBILE ? 'mobile ' + (STANDALONE ? 'webapp splash' : '') : 'desktop');
 
@@ -71,6 +75,16 @@ if (MOBILE) {
 	// Prevent inappropriate scrolling on iOS (simulate app)
 	document.addEventListener("touchmove", function(e){e.preventDefault();});
 
+	// Handle PressEvent → TouchEvent	
+	var tapping = false;
+	document.addEventListener("touchstart", function() { tapping = true; }, true);
+	document.addEventListener("touchmove", function() { tapping = false; }, true);
+	document.addEventListener("touchend", function(e) { tapping && e.target.dispatchEvent(PressEvent); tapping = false; }, true);
+
+}
+else {
+	// Handle PressEvent → ClickEvent
+	document.addEventListener("click", function(e) { e.target.dispatchEvent(PressEvent); }, true);
 }
 
 document.addEventListener("DOMContentLoaded", main);
