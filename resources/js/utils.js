@@ -76,10 +76,7 @@ function storageON() {
 	return true;
 }
 
-
-// Press CustomEvent (handles TouchEvent on mobile and ClickEvent on desktop)
-
-// Polyfill for IE9
+// CustomEvent Polyfill for IE ≥ 9
 (function () {
   function CustomEvent ( event, params ) {
     params = params || { bubbles: false, cancelable: false, detail: undefined };
@@ -92,5 +89,3 @@ function storageON() {
 
   window.CustomEvent = CustomEvent;
 })();
-
-var PressEvent = new CustomEvent("press", {"bubbles": true});
