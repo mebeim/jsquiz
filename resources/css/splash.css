@@ -45,19 +45,19 @@
 
 
 .splash.load .app-title {
-	-webkit-animation: resize-title-area 800ms linear 0 1 normal forwards;
+	-webkit-animation: resize-title-area 400ms linear 0 1 normal forwards;
 }
 
 .splash.load .app-title-text {
-	-webkit-animation: move-title 800ms linear 0 1 normal forwards;
+	-webkit-animation: move-title 400ms linear 0 1 normal forwards;
 }
 
 .splash.load .app-start > * {
-	-webkit-transition: opacity 200ms ease 800ms;
+	-webkit-transition: opacity 200ms ease 400ms;
 	-webkit-opacity: 1;
 }
 
 .splash.load .app-credits-icon {
-	-webkit-transition: opacity 200ms ease 800ms;
+	-webkit-transition: opacity 200ms ease 400ms;
 	-webkit-opacity: 0.8;
 }
