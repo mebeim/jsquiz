@@ -47,6 +47,16 @@ Object.defineProperties(Element.prototype, {
 			}
 		}
 	},
+	// returns true if Element contains at least one class between the given ones
+	hasClass: {
+		value: function() {
+			var cls = this.className.split(" "),
+			    cnt = false;
+			for (var i = 0, cl; (cl=arguments[i]) && !cnt; i++)
+				cnt = cls.indexOf(cl)!=-1;
+			return cnt;
+		}
+	},
 	// Handle this with CSS
 	fadeIn: {
 		value: function() {
@@ -72,7 +82,7 @@ function storageON() {
 	} catch (e) {
 		if (/(QUOTA_?EXCEEDED|SecurityError|ReferenceError)/i.test(e.name))
 			return false;
-	} 
+	}
 	return true;
 }
 

@@ -177,7 +177,7 @@ function JSQuiz(RESUME) {
 
 		var proc = (parseInt(this.dataset.answer) == rightAnswer);
 
-		if (!lostGame) {
+		if (!gameBoard.hasClass("next-question", "level-up", "game-over")) {
 			if (proc) {
 				this.addClass('right');
 				proceed();
