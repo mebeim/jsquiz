@@ -1,11 +1,10 @@
 function JSQuiz(RESUME) {
-	var OBJ 				= this,
+	var game 				= this,
 		MAX_LEVEL			= 30,
 		MAX_PAUSE_TIME		= 3600000, // 1 hour
 		MOBILE				= window.MOBILE,
-		lostGame, currentLevel, currentQuestion, currentAnswer, currentPoints, pointsPerQuestion, questionsPerLevel, questionsAnswered, questions,
+		lostGame, currentLevel, currentQuestion, rightAnswer, currentPoints, pointsPerQuestion, questionsPerLevel, questionsAnswered, questions,
 		XMLp				= new XMLParser(),
-		selectorAnswers		= '.game-answer',
 		gameStartOverlay	= _('.app-start'),
 		gameOverOverlay		= _('.game-over-overlay'),
 		gameStart			= _('.game-start-button'),
@@ -19,7 +18,7 @@ function JSQuiz(RESUME) {
 		gameFinalScore		= _('.game-final-score'),
 		gameFinalLevel		= _('.game-final-level'),
 		gameFinalAnswered	= _('.game-final-answered'),
-		gameAnswers			= _(selectorAnswers, "ALL");
+		gameAnswers			= _('.game-answer', "ALL");
 
 
 	// == PUBLIC == //
@@ -38,7 +37,7 @@ function JSQuiz(RESUME) {
 	this.restart = function() {
 		init();
 		gameOverOverlay.fadeOut();
-		OBJ.start();
+		game.start();
 	}
 
 	// Will quit the game
@@ -78,7 +77,7 @@ function JSQuiz(RESUME) {
 	function init() {
 		currentLevel		= RESUME && RESUME.currentLevel 		||  1;
 		currentQuestion		= RESUME && RESUME.currentQuestion		||  1;
-		currentAnswer		= RESUME && RESUME.currentAnswer		||  0;
+		rightAnswer			= RESUME && RESUME.rightAnswer			||  0;
 		currentPoints		= RESUME && RESUME.currentPoints		||  0;
 		pointsPerQuestion	= RESUME && RESUME.PPQ					||  1;
 		questionsPerLevel	= RESUME && RESUME.QPL					||  3;
@@ -139,7 +138,7 @@ function JSQuiz(RESUME) {
 		gameCode.className = '';
 		gameCode.textContent = q.snippet;
 		hljs.highlightBlock(gameCode);
-		currentAnswer = q.right_answer;
+		rightAnswer = q.right_answer;
 
 		for (var i = 0; i < q.answers.length; i++) {
 			gameAnswers[i].code.textContent = q.answers[i];
@@ -163,7 +162,7 @@ function JSQuiz(RESUME) {
 		}
 
 		if (!lostGame) {
-			if (parseInt(this.dataset.answer) == currentAnswer) {
+			if (parseInt(this.dataset.answer) == rightAnswer) {
 				animate.call(this, true);
 				setTimeout(proceed, 400);
 			} else {
@@ -213,7 +212,7 @@ function JSQuiz(RESUME) {
 
 		if (isLastQuestion()) {
 			(function(el) {
-				setTimeout(function() { 
+				setTimeout(function() {
 					el.removeClass("right");
 				}, 300);
 			})(this);
@@ -228,9 +227,9 @@ function JSQuiz(RESUME) {
 	}
 
 	function proceed() {
-	
+
 		currentPoints += pointsPerQuestion;
-	
+
 		if (isLastQuestion()) { // Next Level
 			currentLevel++;
 			questionsPerLevel = questionsFunction(currentLevel);
@@ -270,7 +269,7 @@ function JSQuiz(RESUME) {
 			"data": {
 				"currentLevel":			currentLevel,
 				"currentQuestion":		currentQuestion,
-				"currentAnswer":		currentAnswer,
+				"rightAnswer":			rightAnswer,
 				"currentPoints":		currentPoints,
 				"PPQ":					pointsPerQuestion,
 				"QPL":					questionsPerLevel,
