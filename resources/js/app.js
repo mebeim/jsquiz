@@ -147,6 +147,8 @@ function JSQuiz(RESUME) {
 		XMLp.parseLevel(n, q, function(response) {
 			if (response.status == "ok") {
 				questions = response.data;
+				// TODO: might remove this when the DB of questions is complete
+				questionsPerLevel = questions.length;
 				callback();
 			}
 		});
