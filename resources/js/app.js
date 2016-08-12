@@ -98,6 +98,28 @@ function JSQuiz(RESUME) {
 		}
 	}
 
+	// Will save the game data in the LocalStorage
+	function saveSession() {
+		if (lostGame) return;
+
+		var session = {
+			"data": {
+				"currentLevel":			currentLevel,
+				"currentQuestion":		currentQuestion,
+				"rightAnswer":			rightAnswer,
+				"currentPoints":		currentPoints,
+				"PPQ":					pointsPerQuestion,
+				"QPL":					questionsPerLevel,
+				"questionsAnswered":	questionsAnswered,
+				"questions":			questions
+			},
+
+			"saveDate": +new Date()
+		};
+
+		localStorage.jsq_session = JSON.stringify(session);
+	}
+
 	// Will map for each level an amount of questions
 //TODO: I don't like all those "if"s, maybe we should hack something with a switch, or better, make a math function.
 	function questionsFunction(x) {
@@ -115,7 +137,7 @@ function JSQuiz(RESUME) {
 		return;
 	}
 
-	// Will assing an amount of points for each question
+	// Will assing an amount of points-per-question for level x
 	function pointsFunction(x) {
 		return Math.round(Math.pow(x, 1.8)/1.5);
 	}
@@ -148,7 +170,12 @@ function JSQuiz(RESUME) {
 		return true;
 	}
 
-	// Will check if the chosen answer is correct
+	// Will check if the current question is the last one of the level
+	function isLastQuestion() {
+		return (currentQuestion == questionsPerLevel);
+	}
+
+	// Will check if the chosen answer is correct and proceed() or lose()
 	function checkAnswer(event) {
 		function animate(r) {
 			var others;
@@ -172,60 +199,7 @@ function JSQuiz(RESUME) {
 		}
 	}
 
-	// Self explanatory
-//TODO: declare functions in a more coherent order (e.g. core, private, public)
-	function isLastQuestion() {
-		return (currentQuestion == questionsPerLevel);
-	}
-
-	// Will update GUI status info
-	function updateInfo() {
-		gameLevel.textContent = currentLevel;
-		gamePoints.textContent = currentPoints;
-	}
-
-	// Will update GUI progress bar
-	function updateProgressBar(percentage) {
-		if (!percentage) {
-			gameProgress.style.opacity = '0';
-			setTimeout(function() {
-				gameProgress.style.width = '0';
-				setTimeout(function() {
-					gameProgress.style.opacity = '1';
-					gameProgress.style.width = '3%';
-				}, 500);
-			}, 200);
-		} else {
-			gameProgress.style.width = percentage + '%';
-		}
-	}
-
-	function animateIn() {
-		_('.game-board').removeClass("next-question level-up");
-		_('.right').removeClass("right");
-	}
-
-	function animateOut(newLevel) {
-		_('.game-board').addClass("next-question");
-
-		this.addClass("right");
-
-		if (isLastQuestion()) {
-			(function(el) {
-				setTimeout(function() {
-					el.removeClass("right");
-				}, 300);
-			})(this);
-		}
-	}
-
-	function animateLevelUp() {
-		gameLevelUp.querySelector('span').textContent = 'LEVEL ' + currentLevel;
-		gameLevelUp.fadeIn();
-		setTimeout(function() { gameLevelUp.fadeOut(); animateIn(); }, 1500);
-		updateProgressBar();
-	}
-
+	// Will display the new question/new level
 	function proceed() {
 
 		currentPoints += pointsPerQuestion;
@@ -252,6 +226,7 @@ function JSQuiz(RESUME) {
 		updateInfo();
 	}
 
+	// Will display the final recap of the game after losing
 	function lose() {
 		lostGame = true;
 		gameFinalScore.textContent = currentPoints;
@@ -262,24 +237,55 @@ function JSQuiz(RESUME) {
 		delete localStorage.jsq_session;
 	}
 
-	function saveSession() {
-		if (lostGame) return;
-
-		var session = {
-			"data": {
-				"currentLevel":			currentLevel,
-				"currentQuestion":		currentQuestion,
-				"rightAnswer":			rightAnswer,
-				"currentPoints":		currentPoints,
-				"PPQ":					pointsPerQuestion,
-				"QPL":					questionsPerLevel,
-				"questionsAnswered":	questionsAnswered,
-				"questions":			questions
-			},
-
-			"saveDate": +new Date()
-		};
-
-		localStorage.jsq_session = JSON.stringify(session);
+	// Will update GUI status info
+	function updateInfo() {
+		gameLevel.textContent = currentLevel;
+		gamePoints.textContent = currentPoints;
 	}
+
+	// Will update GUI progress bar
+	function updateProgressBar(percentage) {
+		if (!percentage) {
+			gameProgress.style.opacity = '0';
+			setTimeout(function() {
+				gameProgress.style.width = '0';
+				setTimeout(function() {
+					gameProgress.style.opacity = '1';
+					gameProgress.style.width = '3%';
+				}, 500);
+			}, 200);
+		} else {
+			gameProgress.style.width = percentage + '%';
+		}
+	}
+
+	// Will begin the transition to new level
+	function animateLevelUp() {
+		gameLevelUp.querySelector('span').textContent = 'LEVEL ' + currentLevel;
+		gameLevelUp.fadeIn();
+		setTimeout(function() { gameLevelUp.fadeOut(); animateIn(); }, 1500);
+		updateProgressBar();
+	}
+
+	// Will begin the transition to new question
+	function animateOut(newLevel) {
+		_('.game-board').addClass("next-question");
+
+		this.addClass("right");
+
+		if (isLastQuestion()) {
+			(function(el) {
+				setTimeout(function() {
+					el.removeClass("right");
+				}, 300);
+			})(this);
+		}
+	}
+
+	// Will end the transition
+	function animateIn() {
+		_('.game-board').removeClass("next-question level-up");
+		_('.right').removeClass("right");
+	}
+
 }
