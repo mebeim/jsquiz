@@ -3,7 +3,7 @@
 html {
 	box-sizing: border-box;
 }
-html * { 
+html * {
 	box-sizing: inherit;
 }
 
@@ -287,6 +287,18 @@ a {
 	opacity: 0;
 }
 
+
+.game-overlay {
+	z-index: -1;
+	opacity: 0;
+	transition: 500ms ease opacity, 0ms linear z-index 500ms;
+}
+.level-up .game-level-up-overlay, .game-over .game-over-overlay {
+	transition: 500ms ease opacity;
+	z-index: 1;
+	opacity: 1;
+}
+
 .game-level-up-overlay {
 	background: #00BE2E;
 }
@@ -498,7 +510,7 @@ a {
 		left: -0.5rem;
 		top: -0.5rem;
 	}
-	
+
 	.game-info .app-title-text {
 		display: block;
 	}
@@ -521,7 +533,7 @@ a {
 	.game-level-up-overlay span {
 		top: 4.2rem;
 	}
-	
+
 	.app-footer {
 		display: none;
 	}

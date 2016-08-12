@@ -6,15 +6,15 @@ function JSQuiz(RESUME) {
 		lostGame, currentLevel, currentQuestion, rightAnswer, currentPoints, pointsPerQuestion, questionsPerLevel, questionsAnswered, questions,
 		XMLp				= new XMLParser(),
 		gameStartOverlay	= _('.app-start'),
-		gameOverOverlay		= _('.game-over-overlay'),
 		gameStart			= _('.game-start-button'),
 		gameRestart			= _('.game-restart-button'),
 		gameQuit			= _('.game-quit-button'),
+		gameBoard			= _('.game-board'),
 		gameCode			= _('.game-snippet code'),
 		gameLevel			= _('.game-current-level span'),
 		gamePoints			= _('.game-points span'),
 		gameProgress		= _('.game-progress-bar'),
-		gameLevelUp			= _('.game-level-up-overlay'),
+		gameLevelUp			= _('.game-level-up-overlay span'),
 		gameFinalScore		= _('.game-final-score'),
 		gameFinalLevel		= _('.game-final-level'),
 		gameFinalAnswered	= _('.game-final-answered'),
@@ -27,23 +27,21 @@ function JSQuiz(RESUME) {
 	this.start = function() {
 		loadLevel(1, 3, function() {
 			updateInfo();
+			cleanBoard();
 			loadQuestion(questions[0]);
 			gameStartOverlay.fadeOut();
-			animateIn();
 		});
 	}
 
 	// Will restart the game
 	this.restart = function() {
 		init();
-		gameOverOverlay.fadeOut();
 		game.start();
 	}
 
 	// Will quit the game
 	this.quit = function() {
 		init();
-		gameOverOverlay.fadeOut();
 		gameStartOverlay.fadeIn();
 	}
 
@@ -84,17 +82,18 @@ function JSQuiz(RESUME) {
 		questionsAnswered	= RESUME && RESUME.questionsAnswered	||  0;
 		questions			= RESUME && RESUME.questions			||  new Array();
 		lostGame			= false;
+
+		cleanBoard();
+
 		if (RESUME) {
 			loadQuestion(questions[currentQuestion-1]);
 			updateInfo();
 			updateProgressBar((currentQuestion-1) / questionsPerLevel * 100);
 			gameStartOverlay.fadeOut();
-			animateIn();
 			RESUME = undefined;
 		}
 		else {
 			updateProgressBar();
-			_('.wrong').removeClass('wrong');
 		}
 	}
 
@@ -152,7 +151,7 @@ function JSQuiz(RESUME) {
 		});
 	}
 
-	// Will load question data
+	// Will prepare question
 	function loadQuestion(q) {
 //TODO: should we throw errors instead?
 		if (!q) return "loadQuestion error: no question given";
@@ -177,29 +176,26 @@ function JSQuiz(RESUME) {
 
 	// Will check if the chosen answer is correct and proceed() or lose()
 	function checkAnswer(event) {
-		function animate(r) {
-			var others;
 
-			if (r) {
+		var proc = (parseInt(this.dataset.answer) == rightAnswer);
+
+		if (!lostGame) {
+			if (proc) {
 				updateProgressBar(currentQuestion / questionsPerLevel * 100);
 				animateOut.call(this);
 				questionsAnswered++;
-			} else
-				this.addClass('wrong');
-		}
-
-		if (!lostGame) {
-			if (parseInt(this.dataset.answer) == rightAnswer) {
-				animate.call(this, true);
+				this.addClass('right');
 				setTimeout(proceed, 400);
-			} else {
-				animate.call(this, false);
+			}
+			else {
+				this.addClass('wrong');
 				setTimeout(lose, 400);
 			}
 		}
+
 	}
 
-	// Will display the new question/new level
+	// Will proceed for new question/new level
 	function proceed() {
 
 		currentPoints += pointsPerQuestion;
@@ -219,7 +215,7 @@ function JSQuiz(RESUME) {
 			currentQuestion++;
 
 			loadQuestion(questions[currentQuestion-1]);
-			animateIn();
+			cleanBoard();
 		}
 
 		saveSession();
@@ -232,8 +228,7 @@ function JSQuiz(RESUME) {
 		gameFinalScore.textContent = currentPoints;
 		gameFinalLevel.textContent = currentLevel;
 		gameFinalAnswered.textContent = questionsAnswered;
-
-		gameOverOverlay.fadeIn();
+		gameBoard.addClass("game-over");
 		delete localStorage.jsq_session;
 	}
 
@@ -261,31 +256,23 @@ function JSQuiz(RESUME) {
 
 	// Will begin the transition to new level
 	function animateLevelUp() {
-		gameLevelUp.querySelector('span').textContent = 'LEVEL ' + currentLevel;
-		gameLevelUp.fadeIn();
-		setTimeout(function() { gameLevelUp.fadeOut(); animateIn(); }, 1500);
+		gameLevelUp.textContent = 'LEVEL ' + currentLevel;
+		gameBoard.addClass("level-up");
+		_('.right').removeClass("right");
+		setTimeout(cleanBoard, 1500);
 		updateProgressBar();
 	}
 
 	// Will begin the transition to new question
-	function animateOut(newLevel) {
-		_('.game-board').addClass("next-question");
-
-		this.addClass("right");
-
-		if (isLastQuestion()) {
-			(function(el) {
-				setTimeout(function() {
-					el.removeClass("right");
-				}, 300);
-			})(this);
-		}
+	function animateOut() {
+		gameBoard.addClass("next-question");
 	}
 
-	// Will end the transition
-	function animateIn() {
-		_('.game-board').removeClass("next-question level-up");
+	// Will end transitions and clean the game board
+	function cleanBoard() {
+		gameBoard.removeClass("next-question level-up game-over");
 		_('.right').removeClass("right");
+		_('.wrong').removeClass("wrong");
 	}
 
 }
