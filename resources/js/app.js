@@ -154,8 +154,6 @@ function JSQuiz(RESUME) {
 
 	// Will prepare question
 	function loadQuestion(q) {
-//TODO: should we throw errors instead?
-		if (!q) return "loadQuestion error: no question given";
 
 		gameCode.className = '';
 		gameCode.textContent = q.snippet;
@@ -167,7 +165,6 @@ function JSQuiz(RESUME) {
 			gameAnswers[i][~q.comments.indexOf(i) ? 'addClass' : 'removeClass']('comment');
 		}
 
-		return true;
 	}
 
 	// Will check if the current question is the last one of the level
