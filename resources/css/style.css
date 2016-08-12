@@ -262,6 +262,18 @@ a {
 	width: 3%;
 }
 
+.level-up .game-progress-bar {
+	opacity: 0;
+	width: 0 !important;
+	transition-delay: 200ms, 0ms;
+}
+
+.game-over .game-progress-bar {
+	opacity: 0;
+	width: 0 !important;
+	transition-delay: 700ms, 500ms;
+}
+
 	/* GAME SNIPPET AREA */
 
 .game-snippet {
@@ -312,6 +324,10 @@ a {
 
 .game-over-overlay {
 	background-color: #D00;
+}
+
+.game-over .game-over-overlay {
+	transition-delay: 500ms;
 }
 
 .game-over-overlay p {
@@ -400,6 +416,11 @@ a {
 .game-answer.right {
 	background-color: #00BE2E;
 	color: #FFF;
+}
+
+.level-up .game-answer.right {
+	background-color: #00ADFF;
+	color: transparent;
 }
 
 .game-answer:hover {

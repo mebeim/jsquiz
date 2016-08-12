@@ -26,7 +26,7 @@ function JSQuiz(RESUME) {
 	// Will start the game
 	this.start = function() {
 		loadLevel(1, 3, function() {
-			updateInfo();
+			updateGUI();
 			cleanBoard();
 			loadQuestion(questions[0]);
 			gameStartOverlay.fadeOut();
@@ -75,26 +75,28 @@ function JSQuiz(RESUME) {
 	function init() {
 		currentLevel		= RESUME && RESUME.currentLevel 		||  1;
 		currentQuestion		= RESUME && RESUME.currentQuestion		||  1;
-		rightAnswer			= RESUME && RESUME.rightAnswer			||  0;
 		currentPoints		= RESUME && RESUME.currentPoints		||  0;
 		pointsPerQuestion	= RESUME && RESUME.PPQ					||  1;
 		questionsPerLevel	= RESUME && RESUME.QPL					||  3;
 		questionsAnswered	= RESUME && RESUME.questionsAnswered	||  0;
-		questions			= RESUME && RESUME.questions			||  new Array();
+		questions			= RESUME && RESUME.questions			||  null;
 		lostGame			= false;
 
+		updateGUI();
 		cleanBoard();
 
+		if (!questions) { // load questions if not available
+			loadLevel(currentLevel, questionsPerLevel, function() {
+				loadQuestion(questions[currentQuestion-1]);
+				saveSession(); // saves the new loaded questions
+			});
+		}
 		if (RESUME) {
-			loadQuestion(questions[currentQuestion-1]);
-			updateInfo();
-			updateProgressBar((currentQuestion-1) / questionsPerLevel * 100);
+			questions && loadQuestion(questions[currentQuestion-1]);
 			gameStartOverlay.fadeOut();
 			RESUME = undefined;
 		}
-		else {
-			updateProgressBar();
-		}
+
 	}
 
 	// Will save the game data in the LocalStorage
@@ -105,7 +107,6 @@ function JSQuiz(RESUME) {
 			"data": {
 				"currentLevel":			currentLevel,
 				"currentQuestion":		currentQuestion,
-				"rightAnswer":			rightAnswer,
 				"currentPoints":		currentPoints,
 				"PPQ":					pointsPerQuestion,
 				"QPL":					questionsPerLevel,
@@ -181,15 +182,12 @@ function JSQuiz(RESUME) {
 
 		if (!lostGame) {
 			if (proc) {
-				updateProgressBar(currentQuestion / questionsPerLevel * 100);
-				animateOut.call(this);
-				questionsAnswered++;
 				this.addClass('right');
-				setTimeout(proceed, 400);
+				proceed();
 			}
 			else {
 				this.addClass('wrong');
-				setTimeout(lose, 400);
+				lose();
 			}
 		}
 
@@ -198,28 +196,46 @@ function JSQuiz(RESUME) {
 	// Will proceed for new question/new level
 	function proceed() {
 
+		animateOut();
+
+		questionsAnswered++;
 		currentPoints += pointsPerQuestion;
 
 		if (isLastQuestion()) { // Next Level
 			currentLevel++;
+			currentQuestion = 1;
+			questions = null;
 			questionsPerLevel = questionsFunction(currentLevel);
+			pointsPerQuestion = pointsFunction(currentLevel);
 
-			loadLevel(currentLevel, questionsPerLevel, function() {
-				currentQuestion = 1;
-				loadQuestion(questions[currentQuestion-1]);
-				pointsPerQuestion = pointsFunction(currentLevel);
+			updateGUI(100);
+
+			setTimeout(function() {
 				animateLevelUp();
-			});
+				loadLevel(currentLevel, questionsPerLevel, function() {
+					saveSession();
+					setTimeout(function() {
+						loadQuestion(questions[currentQuestion-1]);
+						cleanBoard();
+						updateGUI();
+					}, 1500);
+				});
+			}, 400);
+
+			last = true;
+
 		}
 		else { // Next Question
 			currentQuestion++;
+			updateGUI();
 
-			loadQuestion(questions[currentQuestion-1]);
-			cleanBoard();
+			setTimeout(function() {
+				loadQuestion(questions[currentQuestion-1]);
+				cleanBoard();
+			}, 400);
 		}
 
 		saveSession();
-		updateInfo();
 	}
 
 	// Will display the final recap of the game after losing
@@ -232,35 +248,20 @@ function JSQuiz(RESUME) {
 		delete localStorage.jsq_session;
 	}
 
-	// Will update GUI status info
-	function updateInfo() {
+	// Will update the whole GUI based on the status vars
+	function updateGUI(percent) {
 		gameLevel.textContent = currentLevel;
 		gamePoints.textContent = currentPoints;
-	}
-
-	// Will update GUI progress bar
-	function updateProgressBar(percentage) {
-		if (!percentage) {
-			gameProgress.style.opacity = '0';
-			setTimeout(function() {
-				gameProgress.style.width = '0';
-				setTimeout(function() {
-					gameProgress.style.opacity = '1';
-					gameProgress.style.width = '3%';
-				}, 500);
-			}, 200);
-		} else {
-			gameProgress.style.width = percentage + '%';
-		}
+		if (typeof percent != "number")
+			gameProgress.style.width = Math.max(((currentQuestion-1) / questionsPerLevel * 100), 3) + '%';
+		else
+			gameProgress.style.width = percent + "%";
 	}
 
 	// Will begin the transition to new level
 	function animateLevelUp() {
 		gameLevelUp.textContent = 'LEVEL ' + currentLevel;
 		gameBoard.addClass("level-up");
-		_('.right').removeClass("right");
-		setTimeout(cleanBoard, 1500);
-		updateProgressBar();
 	}
 
 	// Will begin the transition to new question
