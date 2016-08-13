@@ -548,7 +548,6 @@ a {
 
 	.game-over-overlay {
 		position: fixed;
-		z-index: 20;
 	}
 
 	.game-level-up-overlay span {
