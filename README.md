@@ -12,4 +12,4 @@ You can try a live demo [HERE][1].
 
 ----------------
 
-*&copy; 2015 Marco Bonelli & Matteo Bernardini*
+*&copy; 2015 Marco Bonelli & Matteo Bernardini. Licensed under the Apache License 2.0.*
