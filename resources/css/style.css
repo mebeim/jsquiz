@@ -1,6 +1,6 @@
 /*
- * (c) Marco Bonelli 2015
- * (c) Matteo Bernardini 2015
+ * Copyright (c) 2015 Marco Bonelli
+ * Copyright (c) 2015 Matteo Bernardini
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
