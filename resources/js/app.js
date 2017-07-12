@@ -22,20 +22,20 @@ function JSQuiz(RESUME) {
 		MOBILE				= window.MOBILE,
 		lostGame, currentLevel, currentQuestion, rightAnswer, currentPoints, pointsPerQuestion, questionsPerLevel, questionsAnswered, questions,
 		XMLp				= new XMLParser(),
-		gameStartOverlay	= _('.app-start'),
-		gameStart			= _('.game-start-button'),
-		gameRestart			= _('.game-restart-button'),
-		gameQuit			= _('.game-quit-button'),
-		gameBoard			= _('.game-board'),
-		gameCode			= _('.game-snippet code'),
-		gameLevel			= _('.game-current-level span'),
-		gamePoints			= _('.game-points span'),
-		gameProgress		= _('.game-progress-bar'),
-		gameLevelUp			= _('.game-level-up-overlay span'),
-		gameFinalScore		= _('.game-final-score'),
-		gameFinalLevel		= _('.game-final-level'),
-		gameFinalAnswered	= _('.game-final-answered'),
-		gameAnswers			= _('.game-answer', "ALL");
+		gameStartOverlay	= _(".app-start"),
+		gameStart			= _(".game-start-button"),
+		gameRestart			= _(".game-restart-button"),
+		gameQuit			= _(".game-quit-button"),
+		gameBoard			= _(".game-board"),
+		gameCode			= _(".game-snippet code"),
+		gameLevel			= _(".game-current-level span"),
+		gamePoints			= _(".game-points span"),
+		gameProgress		= _(".game-progress-bar"),
+		gameLevelUp			= _(".game-level-up-overlay span"),
+		gameFinalScore		= _(".game-final-score"),
+		gameFinalLevel		= _(".game-final-level"),
+		gameFinalAnswered	= _(".game-final-answered"),
+		gameAnswers			= _(".game-answer", "ALL");
 
 
 	// == PUBLIC == //
@@ -68,7 +68,7 @@ function JSQuiz(RESUME) {
 		a = a > MAX_LEVEL ? MAX_LEVEL : a <= 0 ? 1 : a;
 		b = b > MAX_LEVEL ? MAX_LEVEL : b || a;
 		for (var i=a; i <= b; i++) {
-			console.log((i==a ? 'L' : 'l') + 'evel ' + i + ' will have ' + questionsFunction(i) + ' questions each one worth ' + pointsFunction(i) + ' points' + (i==b ? '.' : ';'));
+			console.log((i==a ? "L" : "l") + "evel " + i + " will have " + questionsFunction(i) + " questions each one worth " + pointsFunction(i) + " points" + (i==b ? "." : ";"));
 		}
 	}
 
@@ -174,14 +174,14 @@ function JSQuiz(RESUME) {
 	// Will prepare question
 	function loadQuestion(q) {
 
-		gameCode.className = '';
+		gameCode.className = "";
 		gameCode.textContent = q.snippet;
 		hljs.highlightBlock(gameCode);
 		rightAnswer = q.right_answer;
 
 		for (var i = 0; i < q.answers.length; i++) {
 			gameAnswers[i].code.textContent = q.answers[i];
-			gameAnswers[i][~q.comments.indexOf(i) ? 'addClass' : 'removeClass']('comment');
+			gameAnswers[i][~q.comments.indexOf(i) ? "addClass" : "removeClass"]("comment");
 		}
 
 	}
@@ -198,11 +198,11 @@ function JSQuiz(RESUME) {
 
 		if (!gameBoard.hasClass("next-question", "level-up", "game-over")) {
 			if (proc) {
-				this.addClass('right');
+				this.addClass("right");
 				proceed();
 			}
 			else {
-				this.addClass('wrong');
+				this.addClass("wrong");
 				lose();
 			}
 		}
@@ -269,14 +269,14 @@ function JSQuiz(RESUME) {
 		gameLevel.textContent = currentLevel;
 		gamePoints.textContent = currentPoints;
 		if (typeof percent != "number")
-			gameProgress.style.width = Math.max(((currentQuestion-1) / questionsPerLevel * 100), 3) + '%';
+			gameProgress.style.width = Math.max(((currentQuestion-1) / questionsPerLevel * 100), 3) + "%";
 		else
 			gameProgress.style.width = percent + "%";
 	}
 
 	// Will begin the transition to new level
 	function animateLevelUp() {
-		gameLevelUp.textContent = 'LEVEL ' + currentLevel;
+		gameLevelUp.textContent = "LEVEL " + currentLevel;
 		gameBoard.addClass("level-up");
 	}
 
@@ -288,8 +288,8 @@ function JSQuiz(RESUME) {
 	// Will end transitions and clean the game board
 	function cleanBoard() {
 		gameBoard.removeClass("next-question level-up game-over");
-		_('.right').removeClass("right");
-		_('.wrong').removeClass("wrong");
+		_(".right").removeClass("right");
+		_(".wrong").removeClass("wrong");
 	}
 
 }

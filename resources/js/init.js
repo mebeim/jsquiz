@@ -41,20 +41,20 @@ function main() {
 	if (!RESUMED) JSQ = new JSQuiz();
 
 
-	_('.app-footer').addEventListener("press", function () {
-		_('.app-credits').fadeIn();
+	_(".app-footer").addEventListener("press", function () {
+		_(".app-credits").fadeIn();
 	});
-	_('.app-credits-icon').addEventListener("press", function () {
-		_('.app-credits').fadeIn();
+	_(".app-credits-icon").addEventListener("press", function () {
+		_(".app-credits").fadeIn();
 	});
-	_('.game-info .app-title-text').addEventListener("press", function () {
-		_('.app-credits').fadeIn();
+	_(".game-info .app-title-text").addEventListener("press", function () {
+		_(".app-credits").fadeIn();
 	});
-	_('.app-credits-close-button').addEventListener("press", function () {
-		_('.app-credits').fadeOut();
+	_(".app-credits-close-button").addEventListener("press", function () {
+		_(".app-credits").fadeOut();
 	});
 
-	_('.scrollable').addEventListener("touchmove", function(e) {
+	_(".scrollable").addEventListener("touchmove", function(e) {
 		el = e.currentTarget;
 		if (el.offsetHeight < el.scrollHeight || el.offsetWidth < el.scrollWidth)
 			e.stopPropagation();
@@ -62,14 +62,14 @@ function main() {
 }
 
 
-var MOBILE 		= 'ontouchstart' in window,
+var MOBILE 		= "ontouchstart" in window,
 	STANDALONE	= navigator.standalone,
 
 	// Press CustomEvent (handles TouchEvent on mobile and ClickEvent on desktop)
 	PressEvent = new CustomEvent("press", {"bubbles": true});
 
 
-document.documentElement.className += 'loading ' + (MOBILE ? 'mobile ' + (STANDALONE ? 'webapp splash' : '') : 'desktop');
+document.documentElement.className += "loading " + (MOBILE ? "mobile " + (STANDALONE ? "webapp splash" : "") : "desktop");
 
 
 // Event bindings
